@@ -37,6 +37,7 @@ export const getUserByUsername = createAsyncThunk(
       throw new Error("User not found or password incorrect");
     }
 
+    localStorage.setItem("user", JSON.stringify(user));
     return user;
   }
 );

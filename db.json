@@ -12,7 +12,7 @@
     ],
    "users": [
     { "id": "1", "name": "John", "email": "john@example.com", "password": "test" , "username": "john", "role": "user"},
-    { "id": "2", "name": "Sarah", "email": "sarah@example.com" , "password": "test" , "username": "sarah", "role": "user"},
+    { "id": "2", "name": "Sarah", "email": "sarah@example.com" , "password": "test" , "username": "sarah", "role": "admin"},
     { "id": "3", "name": "David", "email": "david@example.com" ,"password": "test" , "username": "david", "role": "user"},
     { "id": "4", "name": "Robert", "email": "robert@example.com","password": "test" , "username": "Robert" ,"role": "user"},
     { "id": "5", "name": "elsa", "email": "emily@example.com" ,"password": "test" , "username": "elsa","role": "admin"}
