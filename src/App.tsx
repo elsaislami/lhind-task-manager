@@ -5,7 +5,7 @@ import {
   useNavigate,
 } from "react-router-dom";
 import Login from "./pages/LoginScreen/index";
-import HomeScreen from "./pages/HomeScreen";
+import DashboardScreen from "./pages/DashboardScreen";
 import { Provider } from "react-redux";
 import store from "./store";
 import Layout from "./components/Layout";
@@ -20,18 +20,14 @@ const Redirect = ({ to }: { to: string }) => {
 };
 const unFilteredRoutes = [
   {
-    path: "home",
-    element: <HomeScreen />,
+    path: "/",
+    element: <DashboardScreen />,
     allowed_roles: ["all"],
   },
   {
     path: "reports",
     element: <ReportScreen />,
     allowed_roles: ["admin"],
-  },
-  {
-    path: "",
-    element: <Redirect to="/" />,
   },
 ];
 function App() {

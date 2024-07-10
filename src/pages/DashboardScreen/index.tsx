@@ -3,7 +3,7 @@ import "./styles.css";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
 
-const HomeScreen: React.FC = () => {
+const DashboardScreen: React.FC = () => {
   const { user } = useSelector((state: RootState) => state.auth);
   console.log(user);
 
@@ -14,4 +14,4 @@ const HomeScreen: React.FC = () => {
   );
 };
 
-export default HomeScreen;
+export default DashboardScreen;
