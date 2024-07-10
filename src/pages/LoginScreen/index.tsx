@@ -12,11 +12,11 @@ const Login: React.FC = () => {
     username: "",
     password: "",
   });
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
-  const { isAuthenticated, error } = useSelector(
+  const {isAuthenticated, error } = useSelector(
     (state: RootState) => state.auth
   );
 
@@ -35,9 +35,9 @@ const Login: React.FC = () => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigate("/");
+      window.location.href = "/dashboard";
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, navigate]);
 
   return (
     <div className="container">

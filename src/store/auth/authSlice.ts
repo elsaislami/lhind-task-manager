@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { LoginForm, User } from "../../types";
-import { getInstance } from "../../services/api";
+import { axiosInstance } from "../../services/api";
 
 interface AuthState {
   isAuthenticated: boolean;
@@ -23,11 +23,19 @@ const initialState: AuthState = {
   user: null,
 };
 
+// Check if local storage has user
+const storedUser = localStorage.getItem("user");
+if (storedUser) {
+  const parsedUser = JSON.parse(storedUser);
+  initialState.isAuthenticated = true;
+  initialState.user = parsedUser;
+}
+
 export const getUserByUsername = createAsyncThunk(
   "users/getUserByUsername",
   async (payload: LoginForm) => {
-    const response = await getInstance(`users?username=${payload.username}`);
-    if (response.status != 200) {
+    const response = await axiosInstance.get(`users?username=${payload.username}`);
+    if (response.status !== 200) {
       throw new Error("Failed to fetch user");
     }
 

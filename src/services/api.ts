@@ -1,14 +1,19 @@
-import axios from "axios";
+import axios, { AxiosInstance } from "axios";
 import { API_URL } from "../utils/config";
 
-export const getInstance = async (endpoint: string) => {
-  const response = await axios.get(`${API_URL}/${endpoint}`);
+// Get the access token from local storage
+const accessToken = localStorage.getItem("accessToken");
 
-  return response;
-};
+// Create an instance of Axios with the base URL
+export const axiosInstance: AxiosInstance = axios.create({
+  baseURL: API_URL,
+});
 
-export const postInstance = async (endpoint: string, data: any) => {
-  const response = await axios.post(`${API_URL}/${endpoint}`, data);
-
-  return response;
-};
+// Add an interceptor to include the access token in the request headers
+axiosInstance.interceptors.request.use((config) => {
+  // If there is an access token, add it to the Authorization header
+  if (accessToken) {
+    config.headers.Authorization = `Bearer ${accessToken}`;
+  }
+  return config;
+});

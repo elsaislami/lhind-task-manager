@@ -4,7 +4,7 @@ import { RootState } from "../../store";
 import "./TaskGrid.css";
 
 const TaskGrid: React.FC = () => {
-  const { tasks, loading, error } = useSelector(
+  const { tasks } = useSelector(
     (state: RootState) => state.tasks
   );
 

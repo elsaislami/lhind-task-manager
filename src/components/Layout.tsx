@@ -1,13 +1,15 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
+import Header from "./Header";
 
 const Layout: React.FC = () => {
   return (
-    <div className="container">
-      <h1> layout</h1>
-
-      <Outlet />
-    </div>
+    <>
+      <Header />
+      <div className="container">
+        <Outlet />
+      </div>
+    </>
   );
 };
 

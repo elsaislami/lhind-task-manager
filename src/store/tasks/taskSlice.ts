@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import { axiosInstance } from "../../services/api";
 
 interface Task {
   id: string;
@@ -23,7 +23,7 @@ const initialState: TasksState = {
 };
 
 export const fetchTasks = createAsyncThunk("tasks/fetchTasks", async () => {
-  const response = await axios.get("http://localhost:3001/tasks");
+  const response = await axiosInstance.get("/tasks");
   return response.data;
 });
 

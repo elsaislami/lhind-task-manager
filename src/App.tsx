@@ -1,8 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {
   createBrowserRouter,
   RouterProvider,
-  useNavigate,
 } from "react-router-dom";
 import Login from "./pages/LoginScreen/index";
 import DashboardScreen from "./pages/DashboardScreen";
@@ -11,37 +10,44 @@ import store from "./store";
 import Layout from "./components/Layout";
 import ReportScreen from "./pages/ReportsScreen";
 
-const Redirect = ({ to }: { to: string }) => {
-  const navigate = useNavigate();
-  useEffect(() => {
-    navigate(to);
-  }, []);
-  return null;
-};
 const unFilteredRoutes = [
   {
-    path: "/",
+    path: "/dashboard",
     element: <DashboardScreen />,
     allowed_roles: ["all"],
   },
   {
-    path: "reports",
+    path: "/tasks",
+    element: <ReportScreen />,
+    allowed_roles: ["all"],
+  },
+  {
+    path: "/reports",
     element: <ReportScreen />,
     allowed_roles: ["admin"],
   },
+  {
+    path: "/login",
+    element: <Login />,
+  },
 ];
-function App() {
+
+const App: React.FC = () => {
   const filteredRoutes = () => {
-    const user = JSON.parse(localStorage.getItem("user") as any);
+    const { user } = store.getState().auth;
 
     if (user) {
       return unFilteredRoutes.filter(
-        (route: any) =>
-          route.allowed_roles?.includes("all") ||
-          route.allowed_roles?.includes(user.role)
+        (route: any) => {
+          if (route.allowed_roles) {
+            return route.allowed_roles.includes(user.role) || route.allowed_roles.includes("all");
+          }
+          return true;
+        }
       );
     }
-    return [];
+    return unFilteredRoutes.filter(
+      (route: any) =>  !route.allowed_roles);
   };
 
   const router = createBrowserRouter([
@@ -50,15 +56,11 @@ function App() {
       element: <Layout />,
       children: filteredRoutes(),
     },
-    {
-      path: "/login",
-      element: <Login />,
-    },
   ]);
 
   return (
     <Provider store={store}>
-      <RouterProvider router={router} />{" "}
+      <RouterProvider router={router} />
     </Provider>
   );
 }

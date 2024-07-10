@@ -1,10 +1,9 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../store";
-import { title } from "process";
 
 const TaskList: React.FC = () => {
-  const { tasks, loading, error } = useSelector(
+  const { tasks } = useSelector(
     (state: RootState) => state.tasks
   );
 
