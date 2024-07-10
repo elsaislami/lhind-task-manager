@@ -1,0 +1,8 @@
+{
+    "welcome": "Welcome",
+    "date_format": "{{date, MM/dd/yyyy}}",
+    "login": "Anmelden",
+    "username": "nutzername",
+    "password": "passwort"
+  }
+  

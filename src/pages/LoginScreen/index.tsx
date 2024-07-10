@@ -5,12 +5,14 @@ import { useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store";
 import { useNavigate } from "react-router-dom";
 import { LoginForm } from "../../types";
+import { useTranslation } from "react-i18next";
 
 const Login: React.FC = () => {
   const [formData, setFormData] = useState<LoginForm>({
     username: "",
     password: "",
   });
+  const { t, i18n } = useTranslation();
 
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
@@ -44,7 +46,7 @@ const Login: React.FC = () => {
           <h2>Login</h2>
           <form onSubmit={handleSubmit}>
             <div>
-              <label>Username:</label>
+              <label> {t("username")}: </label>
               <input
                 type="text"
                 value={formData.username}
@@ -52,14 +54,14 @@ const Login: React.FC = () => {
               />
             </div>
             <div>
-              <label>Password:</label>
+              <label> {t("password")}:</label>
               <input
                 type="password"
                 value={formData.password}
                 onChange={(e) => handleInputChange("password", e.target.value)}
               />
             </div>
-            <button type="submit">Login</button>
+            <button type="submit">{t("login")}</button>
           </form>
           {error && <p className="error-text">{error}</p>}
         </div>
