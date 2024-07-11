@@ -11,3 +11,36 @@ export interface User {
   password: string;
   username: string;
 }
+
+export interface Task {
+  id: string;
+  title: string;
+  description: string;
+  assignedTo: string;
+  priority: string;
+  date?: Date;
+}
+
+export interface Comment {
+  id: string;
+  taskId: string;
+  text: string;
+  user: string;
+  date: Date;
+}
+
+export interface TaskData {
+  id: string;
+  title: string;
+  description: string;
+  assignedTo: string;
+  priority: string;
+  date?: Date;
+  comments?: Comment[];
+  assignedTasks?: AssignedTask[];
+}
+
+export interface AssignedTask {
+  taskId: string;
+  userId: string;
+}

@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../store";
+import PaginatedList from "./PaginatedList";
 
 const TaskList: React.FC = () => {
   const { tasks } = useSelector(
@@ -9,13 +10,16 @@ const TaskList: React.FC = () => {
 
   return (
     <div>
-      {tasks.map((task) => (
+
+      <PaginatedList />
+
+      {/* {tasks.map((task) => (
         <div key={task.id}>
           <h3>{task.title}</h3>
           <p>{task.description}</p>
           <p>{task.date?.toDateString()}</p>
         </div>
-      ))}
+      ))} */}
     </div>
   );
 };

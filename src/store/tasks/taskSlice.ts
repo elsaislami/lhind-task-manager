@@ -1,14 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { axiosInstance } from "../../services/api";
-
-interface Task {
-  id: string;
-  title: string;
-  description: string;
-  assignedTo: string;
-  priority: string;
-  date?: Date;
-}
+import { Comment, Task } from "../../types";
 
 interface TasksState {
   tasks: Task[];
@@ -27,25 +19,30 @@ export const fetchTasks = createAsyncThunk("tasks/fetchTasks", async () => {
   return response.data;
 });
 
+export const addTask = createAsyncThunk('tasks/addTask', async (task:Task) => {
+  const response = await axiosInstance.post('/tasks', task);
+  return response.data;
+});
+
+export const updateTask = createAsyncThunk('tasks/updateTask', async (task:Task) => {
+  const response = await axiosInstance.put(`/tasks/${task.id}`, task);
+  return response.data;
+});
+
+export const deleteTask = createAsyncThunk('tasks/deleteTask', async (taskId: string) => {
+  await axiosInstance.delete(`/tasks/${taskId}`);
+  return taskId;
+});
+
+export const addComment = createAsyncThunk('comments/addComment', async (comment:Comment) => {
+  const response = await axiosInstance.post(`/comments`, comment);
+  return response.data;
+});
+
 const tasksSlice = createSlice({
   name: "tasks",
   initialState,
-  reducers: {
-    addTask: (state, action) => {
-      state.tasks.push(action.payload);
-    },
-    removeTask: (state, action) => {
-      state.tasks = state.tasks.filter((task) => task.id !== action.payload);
-    },
-    updateTask: (state, action) => {
-      const index = state.tasks.findIndex(
-        (task) => task.id === action.payload.id
-      );
-      if (index !== -1) {
-        state.tasks[index] = action.payload;
-      }
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchTasks.pending, (state) => {
@@ -59,9 +56,19 @@ const tasksSlice = createSlice({
       .addCase(fetchTasks.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message || "Failed to fetch tasks";
+      })
+      .addCase(addTask.fulfilled, (state, action) => {
+        state.tasks.push(action.payload);
+      })
+      .addCase(updateTask.fulfilled, (state, action) => {
+        const index = state.tasks.findIndex(task => task.id === action.payload.id);
+        state.tasks[index] = action.payload;
+      })
+      .addCase(deleteTask.fulfilled, (state, action) => {
+        state.tasks = state.tasks.filter(task => task.id !== action.payload);
       });
   },
 });
 
-export const { addTask, removeTask, updateTask } = tasksSlice.actions;
+export const { } = tasksSlice.actions;
 export default tasksSlice.reducer;

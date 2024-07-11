@@ -7,7 +7,6 @@ body {
 .container {
   display: flex;
   flex-direction: column;
-  align-items: center;
   padding: 20px;
 }
 
@@ -71,4 +70,75 @@ button:hover {
   height: 20px;
   margin-right: 6px; 
   margin-left: 6px; 
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  background: #f9f9f9;
+  margin: 10px 0;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.task-card {
+  border: 1px solid #ccc;
+  padding: 20px;
+  border-radius: 5px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.task-card input[type="text"],
+.task-card textarea,
+.task-card select {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.task-card input[type="file"] {
+  margin: 10px 0;
+}
+
+.task-card button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.task-card button:hover {
+  background-color: #0056b3;
+}
+
+.columns {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.column {
+  flex-basis: 33%;
+  margin-bottom: 20px;
+}
+
+.no-bullets {
+  list-style-type: none;
+  padding: 0;
 }

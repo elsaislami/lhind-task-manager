@@ -17,11 +17,6 @@ const unFilteredRoutes = [
     allowed_roles: ["all"],
   },
   {
-    path: "/tasks",
-    element: <ReportScreen />,
-    allowed_roles: ["all"],
-  },
-  {
     path: "/reports",
     element: <ReportScreen />,
     allowed_roles: ["admin"],

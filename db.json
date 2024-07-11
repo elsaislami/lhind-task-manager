@@ -1,20 +1,174 @@
 {
-    "tasks": [
-      { "id": "1", 
-      "title": "Fix CSS styling on homepage", 
-      "description": "The CSS styling on the homepage is not rendering correctly on mobile devices. Need to fix the media queries.",
-       "assignedTo": "John", 
-       "priority": "high"},
-      { "id": "2", "title": "Implement responsive design for product listing page", "description": "The product listing page needs to be responsive to provide a better user experience on different screen sizes.", "assignedTo": "Sarah", "priority": "medium"},
-      { "id": "3", "title": "Optimize website performance", "description": "The website is loading slowly. Need to identify and fix performance bottlenecks to improve page load times.", "assignedTo": "David", "priority": "low"},
-      { "id": "4", "title": "Add new feature", "description": "Implement a new feature to enhance the functionality of the application.", "assignedTo": "Robert", "priority": "high"},
-      { "id": "5", "title": "Fix bug in login process", "description": "There is a bug in the login process that prevents users from accessing their accounts. Need to investigate and fix the issue.", "assignedTo": "Emily", "priority": "medium"}
-    ],
-   "users": [
-    { "id": "1", "name": "John", "email": "john@example.com", "password": "test" , "username": "john", "role": "user"},
-    { "id": "2", "name": "Sarah", "email": "sarah@example.com" , "password": "test" , "username": "sarah", "role": "admin"},
-    { "id": "3", "name": "David", "email": "david@example.com" ,"password": "test" , "username": "david", "role": "user"},
-    { "id": "4", "name": "Robert", "email": "robert@example.com","password": "test" , "username": "Robert" ,"role": "user"},
-    { "id": "5", "name": "elsa", "email": "emily@example.com" ,"password": "test" , "username": "elsa","role": "admin"}
+  "tasks": [
+    {
+      "id": "1",
+      "title": "Task 1",
+      "description": "Description 1",
+      "assignedTo": "User1",
+      "priority": "high"
+    },
+    {
+      "id": "2",
+      "title": "Implement responsive design for product listing page",
+      "description": "The product listing page needs to be responsive to provide a better user experience on different screen sizes.",
+      "assignedTo": "Sarah",
+      "priority": "high"
+    },
+    {
+      "id": "3",
+      "title": "Optimize website performance",
+      "description": "The website is loading slowly. Need to identify and fix performance bottlenecks to improve page load times.",
+      "assignedTo": "David",
+      "priority": "medium"
+    },
+    {
+      "id": "4",
+      "title": "Add new feature",
+      "description": "Implement a new feature to enhance the functionality of the application.",
+      "assignedTo": "Robert",
+      "priority": "high"
+    },
+    {
+      "id": "5",
+      "title": "Fix bug in login process",
+      "description": "There is a bug in the login process that prevents users from accessing their accounts. Need to investigate and fix the issue.",
+      "assignedTo": "Emily",
+      "priority": "medium"
+    },
+    {
+      "id": "6",
+      "title": "New Task",
+      "description": "New Description",
+      "assignedTo": "User3",
+      "priority": "Medium"
+    },
+    {
+      "id": "7",
+      "title": "Implement responsive design for product listing page",
+      "description": "The product listing page needs to be responsive to provide a better user experience on different screen sizes.",
+      "assignedTo": "Sarah",
+      "priority": "low"
+    },
+    {
+      "id": "8",
+      "title": "Implement responsive design for product listing page",
+      "description": "The product listing page needs to be responsive to provide a better user experience on different screen sizes.",
+      "assignedTo": "Sarah",
+      "priority": "low"
+    },
+    {
+      "id": "9",
+      "title": "Optimize website performance",
+      "description": "The website is loading slowly. Need to identify and fix performance bottlenecks to improve page load times.",
+      "assignedTo": "David",
+      "priority": "medium"
+    },
+    {
+      "id": "10",
+      "title": "Add new feature",
+      "description": "Implement a new feature to enhance the functionality of the application.",
+      "assignedTo": "Robert",
+      "priority": "medium"
+    },
+    {
+      "id": "11",
+      "title": "Fix bug in login process",
+      "description": "There is a bug in the login process that prevents users from accessing their accounts. Need to investigate and fix the issue.",
+      "assignedTo": "Emily",
+      "priority": "medium"
+    },
+    {
+      "id": "b16f",
+      "title": "New Task",
+      "description": "New Description",
+      "assignedTo": "User3",
+      "priority": "Medium"
+    }
+  ],
+  "users": [
+    {
+      "id": "1",
+      "name": "John",
+      "email": "john@example.com",
+      "password": "test",
+      "username": "john",
+      "role": "user"
+    },
+    {
+      "id": "2",
+      "name": "Sarah",
+      "email": "sarah@example.com",
+      "password": "test",
+      "username": "sarah",
+      "role": "admin"
+    },
+    {
+      "id": "3",
+      "name": "David",
+      "email": "david@example.com",
+      "password": "test",
+      "username": "david",
+      "role": "user"
+    },
+    {
+      "id": "4",
+      "name": "Robert",
+      "email": "robert@example.com",
+      "password": "test",
+      "username": "Robert",
+      "role": "user"
+    },
+    {
+      "id": "5",
+      "name": "elsa",
+      "email": "emily@example.com",
+      "password": "test",
+      "username": "elsa",
+      "role": "admin"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "taskId": null,
+      "text": "This is a comment on task 1",
+      "user": "John"
+    },
+    {
+      "id": "0898",
+      "taskId": null,
+      "text": "ckemi",
+      "user": "John",
+      "date": "2024-07-11T13:38:27.947Z"
+    },
+    {
+      "id": "b3b8",
+      "taskId": "1",
+      "text": "testing the comment create",
+      "user": "John",
+      "date": "2024-07-11T18:24:09.877Z"
+    }
+  ],
+  "assignedTasks": [
+    {
+      "taskId": null,
+      "userId": "1"
+    },
+    {
+      "taskId": "2",
+      "userId": "2"
+    },
+    {
+      "taskId": "3",
+      "userId": "3"
+    },
+    {
+      "taskId": "4",
+      "userId": "4"
+    },
+    {
+      "taskId": "5",
+      "userId": "5"
+    }
   ]
-  }
+}

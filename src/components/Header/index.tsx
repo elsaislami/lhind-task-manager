@@ -11,10 +11,6 @@ const loggedInLinks = [
     title: "Dashboard",
     path: "/dashboard",
   },
-  {
-    title: "Tasks",
-    path: "/tasks",
-  },
 ];
 
 const unLoggedLinks = [
