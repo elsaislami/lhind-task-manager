@@ -22,7 +22,7 @@ const TaskModal: React.FC<{
     title: "",
     description: "",
     priority: priority ? priority : "low",
-    assignedTo: "",
+    userId: "",
   });
 
   const [comment, setComment] = useState<string>("");
@@ -110,7 +110,7 @@ const TaskModal: React.FC<{
           type="text"
           name="assignedTo"
           placeholder="Assign to user"
-          value={task.assignedTo}
+          value={task.userId}
           onChange={handleInputChange}
           className={styles.inputField}
         />

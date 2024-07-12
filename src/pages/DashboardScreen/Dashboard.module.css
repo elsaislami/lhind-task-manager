@@ -2,6 +2,13 @@
    background-color: rgb(5,23,77);
   }
 
+.headerItems {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
 /* Remove default button styles */
 button {
     background: none;
@@ -48,3 +55,9 @@ button.active:active {
   }
   
   
+  @media (max-width: 768px) {
+    .headerItems {
+      flex-direction: column;
+      gap: 1rem;
+    }
+  }

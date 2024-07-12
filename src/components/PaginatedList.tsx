@@ -1,35 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { Task } from "../types";
-import { axiosInstance } from "../services/api";
 import TaskCard from "./TaskCard/TaskCard";
+import { useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../store";
+import { useDispatch } from "react-redux";
+import { fetchTasksForPagination } from "../store/tasks/taskSlice";
 
 const PaginatedList: React.FC = () => {
-  const [data, setData] = useState<Task[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+  const dispatch = useDispatch() as AppDispatch;
   const [page, setPage] = useState<number>(1);
-  const [hasMore, setHasMore] = useState<boolean>(true);
-
+  const taskState = useSelector((state: RootState) => state.tasks);
+  const { paginationTasks, loading, lastPage } = taskState;
+ 
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(true);
-      try {
-        const response = await axiosInstance.get(`/tasks`, {
-          params: { _page: page, _per_page: 4 },
-        });
-
-        setData((prevData) => [...prevData, ...response.data.data]);
-        if (
-          response.data.data.length === 0 ||
-          response.data.data.length < 4 ||
-          !response.data.next
-        ) {
-          setHasMore(false);
-        }
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setLoading(false);
-      }
+      dispatch(fetchTasksForPagination({ page, perPage: 4 }));
     };
 
     fetchData();
@@ -41,15 +25,14 @@ const PaginatedList: React.FC = () => {
 
   return (
     <div>
-      {/* <h1>Paginated Task List</h1> */}
       <ul>
-        {data.map((item) => (
-          <TaskCard task={item} className="list" />
+        {paginationTasks.map((item, index) => (
+            <TaskCard task={item} className="list" key={index} />
         ))}
       </ul>
       {loading && <p>Loading...</p>}
-      {hasMore && !loading && <button onClick={loadMore}>Load More</button>}
-      {!hasMore && <p>No more data</p>}
+      {!lastPage && !loading && <button onClick={loadMore}>Load More</button>}
+      {lastPage && <p>No more data</p>}
     </div>
   );
 };

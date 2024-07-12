@@ -4,49 +4,92 @@
       "id": "5",
       "title": "Fix bug in login process",
       "description": "There is a bug in the login process that prevents users from accessing their accounts. Need to investigate and fix the issue.",
-      "assignedTo": "Emily",
-      "priority": "low"
-    },
-    {
-      "id": "6",
-      "title": "New Task",
-      "description": "New Description",
-      "assignedTo": "User3",
-      "priority": "Medium"
+      "userId": "1",
+      "priority": "low",
+      "comments": [],
+      "user": {
+        "id": "1",
+        "name": "John",
+        "last_name": "John",
+        "email": "john@example.com",
+        "password": "test",
+        "username": "john",
+        "role": "user"
+      }
     },
     {
       "id": "7",
       "title": "Implement responsive design for product listing page",
       "description": "The product listing page needs to be responsive to provide a better user experience on different screen sizes.",
-      "assignedTo": "Sarah",
-      "priority": "medium"
+      "userId": "3",
+      "priority": "low",
+      "comments": [],
+      "user": {
+        "id": "3",
+        "name": "David",
+        "last_name": "John",
+        "email": "david@example.com",
+        "password": "test",
+        "username": "david",
+        "role": "user"
+      }
     },
     {
       "id": "10",
       "title": "Add new feature",
       "description": "Implement a new feature to enhance the functionality of the application.",
-      "assignedTo": "Robert",
-      "priority": "medium"
+      "userId": "4",
+      "priority": "high",
+      "comments": [],
+      "user": {
+        "id": "4",
+        "name": "Robert",
+        "last_name": "John",
+        "email": "robert@example.com",
+        "password": "test",
+        "username": "Robert",
+        "role": "user"
+      }
     },
     {
       "id": "11",
       "title": "Fix bug in login process",
       "description": "There is a bug in the login process that prevents users from accessing their accounts. Need to investigate and fix the issue.",
-      "assignedTo": "Emily",
-      "priority": "high"
+      "userId": "5",
+      "priority": "medium",
+      "comments": [],
+      "user": {
+        "id": "5",
+        "name": "elsa",
+        "email": "emily@example.com",
+        "password": "test",
+        "username": "elsa",
+        "role": "admin"
+      }
     },
     {
       "id": "b16f",
       "title": "New Task",
       "description": "New Description",
-      "assignedTo": "User3",
-      "priority": "Medium"
+      "userId": "2",
+      "priority": "high",
+      "comments": [],
+      "user": {
+        "id": "2",
+        "name": "Sarah",
+        "last_name": "John",
+        "email": "sarah@example.com",
+        "password": "test",
+        "username": "sarah",
+        "role": "admin"
+      }
     }
   ],
   "users": [
     {
       "id": "1",
       "name": "John",
+      "last_name": "John",
       "email": "john@example.com",
       "password": "test",
       "username": "john",
@@ -55,6 +98,7 @@
     {
       "id": "2",
       "name": "Sarah",
+      "last_name": "John",
       "email": "sarah@example.com",
       "password": "test",
       "username": "sarah",
@@ -63,6 +107,7 @@
     {
       "id": "3",
       "name": "David",
+      "last_name": "John",
       "email": "david@example.com",
       "password": "test",
       "username": "david",
@@ -71,6 +116,7 @@
     {
       "id": "4",
       "name": "Robert",
+      "last_name": "John",
       "email": "robert@example.com",
       "password": "test",
       "username": "Robert",
@@ -117,33 +163,6 @@
       "text": "coment",
       "user": "John",
       "date": "2024-07-12T14:00:58.781Z"
-    }
-  ],
-  "assignedTasks": [
-    {
-      "taskId": null,
-      "userId": "1",
-      "id": "8e5f"
-    },
-    {
-      "taskId": null,
-      "userId": "2",
-      "id": "ab34"
-    },
-    {
-      "taskId": null,
-      "userId": "3",
-      "id": "45de"
-    },
-    {
-      "taskId": null,
-      "userId": "4",
-      "id": "48d3"
-    },
-    {
-      "taskId": "5",
-      "userId": "5",
-      "id": "e265"
     }
   ]
 }

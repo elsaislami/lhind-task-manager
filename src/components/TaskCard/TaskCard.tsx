@@ -1,12 +1,12 @@
 import React from "react";
 import { TrashIcon, ChartBarIcon } from "@heroicons/react/24/solid";
-import { Task } from "../../types";
+import { Task, TaskData } from "../../types";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../store";
 import { deleteTask } from "../../store/tasks/taskSlice";
 import "./TaskCard.module.css";
 
-const TaskCard: React.FC<{ task: Task; className?: string }> = ({
+const TaskCard: React.FC<{ task: TaskData; className?: string }> = ({
   task,
   className,
 }) => {
@@ -17,7 +17,7 @@ const TaskCard: React.FC<{ task: Task; className?: string }> = ({
   };
 
   const getInitial = (name: string) => {
-    return name.charAt(0).toUpperCase();
+    return name?.charAt(0).toUpperCase();
   };
 
   return (
@@ -33,7 +33,7 @@ const TaskCard: React.FC<{ task: Task; className?: string }> = ({
             <ChartBarIcon width={16} height={16} color="lightgrey" />
             {task.priority}
           </p>
-          <div className="avatar">{getInitial(task.assignedTo)}</div>
+          <div className="avatar">{task.user ? getInitial(task.user.name) + ''  +getInitial(task.user.last_name): ''}</div>
         </div>
       </div>
     </div>

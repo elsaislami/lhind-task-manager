@@ -7,6 +7,7 @@ export interface User {
   id: string;
   role: "admin" | "user";
   name: string;
+  last_name: string;
   email: string;
   password: string;
   username: string;
@@ -16,7 +17,7 @@ export interface Task {
   id: string;
   title: string;
   description: string;
-  assignedTo: string;
+  userId: string;
   priority: string;
   date?: Date;
 }
@@ -33,14 +34,9 @@ export interface TaskData {
   id: string;
   title: string;
   description: string;
-  assignedTo: string;
+  userId: string;
   priority: string;
   date?: Date;
   comments?: Comment[];
-  assignedTasks?: AssignedTask[];
-}
-
-export interface AssignedTask {
-  taskId: string;
-  userId: string;
+  user?: User;
 }

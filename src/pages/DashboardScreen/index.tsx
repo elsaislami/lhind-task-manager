@@ -8,40 +8,20 @@ import GirdView from "../../components/GridView/GirdView";
 // import TaskCalendar from "./TaskCalendar";
 import { useDispatch } from "react-redux";
 import {
-  addTask,
-  deleteTask,
   fetchTasks,
-  updateTask,
 } from "../../store/tasks/taskSlice";
 import { AppDispatch } from "../../store";
-import { Task } from "../../types";
 import TaskModal from "../../components/TaskModal/TaskModal";
 import styles from "./Dashboard.module.css";
 import { useTranslation } from "react-i18next";
+import SearchModal from "../../components/SearchModal";
 
 const Dashboard: React.FC = () => {
   const [view, setView] = useState("list");
   const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
   const { t } = useTranslation();
-
-  const handleAddTask = () => {
-    const newTask = {
-      title: "New Task",
-      description: "New Description",
-      assignedTo: "User3",
-      priority: "medium",
-    } as Task;
-    dispatch(addTask(newTask));
-  };
-
-  const handleUpdateTask = (task: Task) => {
-    dispatch(updateTask(task));
-  };
-
-  const handleDeleteTask = (taskId: string) => {
-    dispatch(deleteTask(taskId));
-  };
+  const [showSearchModal, setShowSearchModal] = useState(false);
 
   const handleCloseModal = () => {
     setShowModal(false);
@@ -55,12 +35,7 @@ const Dashboard: React.FC = () => {
     <div>
       <div className={styles.headerContainer}>
         <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            paddingTop: 15,
-          }}
-        >
+        className={styles.headerItems}>
           <div>
             <button
               className={view === "list" ? styles.active : ""}
@@ -86,29 +61,15 @@ const Dashboard: React.FC = () => {
               <AdjustmentsHorizontalIcon width={20} height={20} color="white" />
             </button>
             <button onClick={() => {}}>
-              <MagnifyingGlassIcon width={20} height={20} color="white" />
+              <MagnifyingGlassIcon width={20} height={20} color="white" onClick={() => setShowSearchModal(true)} />
             </button>
           </div>
         </div>
-
-        {/* <button onClick={handleAddTask}>Add Task</button> */}
-        {/* <button
-          onClick={() =>
-            handleUpdateTask({
-              id: "1",
-              title: "Task 1",
-              description: "Description 1",
-              assignedTo: "User1",
-              priority: "high",
-            })
-          }
-        >
-          Update Task
-        </button> */}
-        {/* <button onClick={() => handleDeleteTask("1")}>Delete Task</button> */}
       </div>
-      <div style={{ padding: 20 }}>
-        {view === "list" && <TaskList />}
+      <div style={{ padding: 20, display: 'flex', justifyContent: 'center' }}>
+        <div style={{maxWidth: '80%'}}>
+          {view === "list" && <TaskList />}
+        </div>
         {view === "grid" && <GirdView />}
       </div>
 
@@ -119,7 +80,7 @@ const Dashboard: React.FC = () => {
           id: "1",
           title: "Task 1",
           description: "Description 1",
-          assignedTo: "User1",
+          userId: "1",
           priority: "High",
           comments: [
             {
@@ -133,6 +94,10 @@ const Dashboard: React.FC = () => {
         }}
         onClose={handleCloseModal} // Pass the close handler
       />
+
+      { showSearchModal &&
+        <SearchModal setShowModal={setShowModal} />
+      }
       {/* {view === "calendar" && <TaskCalendar />} */}
     </div>
   );
