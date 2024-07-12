@@ -3,6 +3,12 @@
     "date_format": "{{date, MM/dd/yyyy}}",
     "login": "Anmelden",
     "username": "nutzername",
-    "password": "passwort"
+    "password": "passwort",
+    "listView": "Listenansicht",
+    "gridView": "Rasteransicht ",
+    "calendarView": "Kalenderansicht",
+    "lowPriority": "Niedrige Priorität",
+    "mediumPriority": "Mittlere Priorität ",
+    "highPriority": "Hohe Priorität "
   }
   

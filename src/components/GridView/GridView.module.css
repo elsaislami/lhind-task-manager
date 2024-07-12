@@ -1,0 +1,35 @@
+.columns {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.column {
+  flex: 1;
+  min-width: 300px;
+  margin-bottom: 20px;
+  background: #f9f9f9;
+  padding: 15px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  
+}
+
+.columnHeader{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 30;
+}
+
+.no-bullets {
+  list-style: none;
+  padding: 0;
+}
+
+@media (max-width: 992px) {
+  .columns {
+    flex-direction: column;
+  }
+}

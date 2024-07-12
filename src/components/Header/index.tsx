@@ -1,15 +1,22 @@
 import React, { useState } from "react";
-import "./styles.css";
-import { Bars3Icon } from "@heroicons/react/24/solid";
+import styles from "./Header.module.css";
+import {
+  Bars3Icon,
+  HomeIcon,
+  ArrowRightOnRectangleIcon,
+  ChartPieIcon,
+} from "@heroicons/react/24/solid";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../store/auth/authSlice";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
+import { useTranslation } from "react-i18next";
 
 const loggedInLinks = [
   {
     title: "Dashboard",
     path: "/dashboard",
+    icon: HomeIcon,
   },
 ];
 
@@ -17,6 +24,7 @@ const unLoggedLinks = [
   {
     title: "Home",
     path: "/",
+    icon: HomeIcon,
   },
 ];
 
@@ -24,6 +32,7 @@ const adminLinks = [
   {
     title: "Reports",
     path: "/reports",
+    icon: ChartPieIcon,
   },
 ];
 
@@ -33,12 +42,13 @@ const Header: React.FC = () => {
   );
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
+  const { i18n } = useTranslation();
+
   const handleNavigation = (path: string) => {
     if (path === "/logout") {
       handleLogout();
       return;
     }
-
     navigate(path);
   };
 
@@ -48,54 +58,83 @@ const Header: React.FC = () => {
     window.location.href = "/login";
   };
 
+  const handleLanguageChange = (language: string) => {
+    i18n.changeLanguage(language);
+  };
+
   return (
-    <div className={`topnav ${isOpen ? "responsive" : ""}`}>
-      {isAuthenticated ? (
-        <>
-          {loggedInLinks.map((link, index) => (
-            <span
-              key={index}
-              className={window.location.pathname === link.path ? "active" : ""}
-              onClick={() => handleNavigation(link.path)}
-            >
-              {link.title}
-            </span>
-          ))}
-          {user && user.role === "admin" && (
-            <>
-              {adminLinks.map((link, index) => (
-                <span
-                  key={index}
-                  className={
-                    window.location.pathname === link.path ? "active" : ""
-                  }
-                  onClick={() => handleNavigation(link.path)}
-                >
-                  {link.title}
-                </span>
-              ))}
-            </>
-          )}
-        </>
-      ) : (
-        <>
-          {unLoggedLinks.map((link, index) => (
-            <span
-              key={index}
-              className={window.location.pathname === link.path ? "active" : ""}
-              onClick={() => handleNavigation(link.path)}
-            >
-              {link.title}
-            </span>
-          ))}
-        </>
-      )}
-      {user ? (
-        <span onClick={() => handleNavigation("/logout")}>{"Logout"}</span>
-      ) : (
-        <span onClick={() => handleNavigation("/login")}>{"Login"}</span>
-      )}
-      <span className="icon">
+    <div className={`${styles.topnav} ${isOpen ? styles.responsive : ""}`}>
+      <div className={styles.left}>
+        {isAuthenticated ? (
+          <>
+            {loggedInLinks.map((link, index) => (
+              <span
+                key={index}
+                className={
+                  window.location.pathname === link.path ? styles.active : ""
+                }
+                onClick={() => handleNavigation(link.path)}
+              >
+                <link.icon width={30} height={30} color="white" />
+              </span>
+            ))}
+            {user && user.role === "admin" && (
+              <>
+                {adminLinks.map((link, index) => (
+                  <span
+                    key={index}
+                    className={
+                      window.location.pathname === link.path
+                        ? styles.active
+                        : ""
+                    }
+                    onClick={() => handleNavigation(link.path)}
+                  >
+                    <link.icon width={30} height={30} color="white" />
+                  </span>
+                ))}
+              </>
+            )}
+          </>
+        ) : (
+          <>
+            {unLoggedLinks.map((link, index) => (
+              <span
+                key={index}
+                className={
+                  window.location.pathname === link.path ? styles.active : ""
+                }
+                onClick={() => handleNavigation(link.path)}
+              >
+                <link.icon width={30} height={30} color="white" />
+              </span>
+            ))}
+          </>
+        )}
+      </div>
+
+      <div className={styles.right}>
+        <span
+          className={styles.languageSwitcher}
+          onClick={() => handleLanguageChange("en")}
+        >
+          EN
+        </span>
+        <span
+          className={styles.languageSwitcher}
+          onClick={() => handleLanguageChange("de")}
+        >
+          DE
+        </span>
+        {user ? (
+          <span onClick={() => handleNavigation("/logout")}>
+            <ArrowRightOnRectangleIcon width={30} height={30} color="white" />
+          </span>
+        ) : (
+          <span onClick={() => handleNavigation("/login")}>{"Login"}</span>
+        )}
+      </div>
+      <span className={styles.icon}>
         <Bars3Icon
           height={20}
           width={20}

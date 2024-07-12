@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { Task } from '../types';
-import { axiosInstance } from '../services/api';
+import React, { useState, useEffect } from "react";
+import { Task } from "../types";
+import { axiosInstance } from "../services/api";
+import TaskCard from "./TaskCard/TaskCard";
 
 const PaginatedList: React.FC = () => {
   const [data, setData] = useState<Task[]>([]);
@@ -15,9 +16,13 @@ const PaginatedList: React.FC = () => {
         const response = await axiosInstance.get(`/tasks`, {
           params: { _page: page, _per_page: 4 },
         });
-        
-        setData(prevData => [...prevData, ...response.data.data]);
-        if ((response.data.data.length === 0 || response.data.data.length < 4) || !response.data.next) {
+
+        setData((prevData) => [...prevData, ...response.data.data]);
+        if (
+          response.data.data.length === 0 ||
+          response.data.data.length < 4 ||
+          !response.data.next
+        ) {
           setHasMore(false);
         }
       } catch (error) {
@@ -31,26 +36,19 @@ const PaginatedList: React.FC = () => {
   }, [page]);
 
   const loadMore = () => {
-    setPage(prevPage => prevPage + 1);
+    setPage((prevPage) => prevPage + 1);
   };
 
   return (
     <div>
-      <h1>Paginated Task List</h1>
+      {/* <h1>Paginated Task List</h1> */}
       <ul>
-        {data.map(item => (
-          <li key={item.id}>
-            <h3>{item.title}</h3>
-            <p>{item.description}</p>
-            <p>Assigned to: {item.assignedTo}</p>
-            <p>Priority: {item.priority}</p>
-          </li>
+        {data.map((item) => (
+          <TaskCard task={item} className="list" />
         ))}
       </ul>
       {loading && <p>Loading...</p>}
-      {hasMore && !loading && (
-        <button onClick={loadMore}>Load More</button>
-      )}
+      {hasMore && !loading && <button onClick={loadMore}>Load More</button>}
       {!hasMore && <p>No more data</p>}
     </div>
   );

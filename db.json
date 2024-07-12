@@ -1,39 +1,11 @@
 {
   "tasks": [
     {
-      "id": "1",
-      "title": "Task 1",
-      "description": "Description 1",
-      "assignedTo": "User1",
-      "priority": "high"
-    },
-    {
-      "id": "2",
-      "title": "Implement responsive design for product listing page",
-      "description": "The product listing page needs to be responsive to provide a better user experience on different screen sizes.",
-      "assignedTo": "Sarah",
-      "priority": "high"
-    },
-    {
-      "id": "3",
-      "title": "Optimize website performance",
-      "description": "The website is loading slowly. Need to identify and fix performance bottlenecks to improve page load times.",
-      "assignedTo": "David",
-      "priority": "medium"
-    },
-    {
-      "id": "4",
-      "title": "Add new feature",
-      "description": "Implement a new feature to enhance the functionality of the application.",
-      "assignedTo": "Robert",
-      "priority": "high"
-    },
-    {
       "id": "5",
       "title": "Fix bug in login process",
       "description": "There is a bug in the login process that prevents users from accessing their accounts. Need to investigate and fix the issue.",
       "assignedTo": "Emily",
-      "priority": "medium"
+      "priority": "low"
     },
     {
       "id": "6",
@@ -47,20 +19,6 @@
       "title": "Implement responsive design for product listing page",
       "description": "The product listing page needs to be responsive to provide a better user experience on different screen sizes.",
       "assignedTo": "Sarah",
-      "priority": "low"
-    },
-    {
-      "id": "8",
-      "title": "Implement responsive design for product listing page",
-      "description": "The product listing page needs to be responsive to provide a better user experience on different screen sizes.",
-      "assignedTo": "Sarah",
-      "priority": "low"
-    },
-    {
-      "id": "9",
-      "title": "Optimize website performance",
-      "description": "The website is loading slowly. Need to identify and fix performance bottlenecks to improve page load times.",
-      "assignedTo": "David",
       "priority": "medium"
     },
     {
@@ -75,7 +33,7 @@
       "title": "Fix bug in login process",
       "description": "There is a bug in the login process that prevents users from accessing their accounts. Need to investigate and fix the issue.",
       "assignedTo": "Emily",
-      "priority": "medium"
+      "priority": "high"
     },
     {
       "id": "b16f",
@@ -129,7 +87,7 @@
   ],
   "comments": [
     {
-      "id": 1,
+      "id": "1",
       "taskId": null,
       "text": "This is a comment on task 1",
       "user": "John"
@@ -143,32 +101,49 @@
     },
     {
       "id": "b3b8",
-      "taskId": "1",
+      "taskId": null,
       "text": "testing the comment create",
       "user": "John",
       "date": "2024-07-11T18:24:09.877Z"
+    },
+    {
+      "id": "fb78",
+      "text": "",
+      "user": "John",
+      "date": "2024-07-12T13:48:17.878Z"
+    },
+    {
+      "id": "83a1",
+      "text": "coment",
+      "user": "John",
+      "date": "2024-07-12T14:00:58.781Z"
     }
   ],
   "assignedTasks": [
     {
       "taskId": null,
-      "userId": "1"
+      "userId": "1",
+      "id": "8e5f"
     },
     {
-      "taskId": "2",
-      "userId": "2"
+      "taskId": null,
+      "userId": "2",
+      "id": "ab34"
     },
     {
-      "taskId": "3",
-      "userId": "3"
+      "taskId": null,
+      "userId": "3",
+      "id": "45de"
     },
     {
-      "taskId": "4",
-      "userId": "4"
+      "taskId": null,
+      "userId": "4",
+      "id": "48d3"
     },
     {
       "taskId": "5",
-      "userId": "5"
+      "userId": "5",
+      "id": "e265"
     }
   ]
 }

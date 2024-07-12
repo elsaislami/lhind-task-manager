@@ -1,0 +1,50 @@
+.headerContainer {
+   background-color: rgb(5,23,77);
+  }
+
+/* Remove default button styles */
+button {
+    background: none;
+    border: none;
+    color: gray;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    outline: none;
+    border-bottom: 2px solid transparent; /* Invisible border to maintain size consistency */
+  }
+  
+  /* Remove hover, focus, and active styles */
+  button:hover,
+  button:focus,
+  button:active {
+    background: none;
+    border: none;
+    color: gray;
+    outline: none;
+    border-bottom: 2px solid transparent; /* Ensure consistency on hover, focus, active */
+  }
+  
+  /* Styles for active buttons */
+  button.active {
+    color: white;
+    border-bottom: 2px solid white; /* Visible white border for active button */
+  }
+  
+  /* Remove hover, focus, and active styles for active buttons */
+  button.active:hover,
+  button.active:focus,
+button.active:active {
+    background: none;
+    border: none;
+    color: white;
+    outline: none;
+    border-bottom: 2px solid white; /* Maintain white border on hover, focus, active */
+  }
+
+  .justifyBetween{
+    display: "flex";
+    justify-content: space-between;
+  }
+  
+  
