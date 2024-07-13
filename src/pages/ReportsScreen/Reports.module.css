@@ -1,0 +1,13 @@
+.reportsContainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin: 20px;
+}
+
+@media (max-width: 768px) {
+    .reportsContainer {
+        flex-direction: column;
+    }
+}

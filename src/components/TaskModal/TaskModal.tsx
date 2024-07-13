@@ -6,6 +6,7 @@ import { addComment } from "../../store/tasks/taskSlice";
 import styles from "./TaskModal.module.css";
 import { useTranslation } from "react-i18next";
 import { getUsers } from "../../store/auth/authSlice";
+import { use } from "i18next";
 
 const TaskModal: React.FC<{
   selectedTask: TaskData | null;
@@ -18,6 +19,7 @@ const TaskModal: React.FC<{
   const dispatch = useDispatch<AppDispatch>();
   const modalRef = useRef<HTMLDivElement | null>(null);
   const { t } = useTranslation();
+  const { user: currentUser } = useSelector((state: RootState) => state.auth);
 
   const initialTaskObject = {
     id: "",
@@ -29,6 +31,7 @@ const TaskModal: React.FC<{
   const [task, setTask] = useState<TaskData>(initialTaskObject);
 
   const [comment, setComment] = useState<string>("");
+  const [comments, setComments] = useState<Comment[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [selectedUserName, setSelectedUserName] = useState<string>("");
 
@@ -70,10 +73,21 @@ const TaskModal: React.FC<{
       addComment({
         taskId: selectedTask?.id,
         text: comment,
-        user: "John",
+        userId: currentUser?.id,
         date: new Date(),
       } as Comment)
     );
+    setComments((prev:any) => {
+      return [
+        ...prev,
+        {
+          text: comment,
+          userId: currentUser?.id,
+          date: new Date(),
+        },
+      ];
+    });
+    
     setComment("");
   };
 
@@ -96,11 +110,24 @@ const TaskModal: React.FC<{
     setTask(initialTaskObject);
   };
 
+  const getCommentUser = (commentUserId: string) => {
+    const user = users.find((user) => user.id === commentUserId);
+    return user ? user : null;
+  };
+
+  useEffect(() => { 
+    if(task && task.comments && task.comments.length > 0) {
+      setComments(task.comments);
+    }
+  }, [task]);
+  
   if (!showModal) return null;
 
   return (
-    <div className={styles.modalOverlay}>
-      <div className={styles.modalContent} ref={modalRef}>
+    <div className={styles.modalOverlay} onClick={() => {
+      onClose();
+    }}>
+      <div className={styles.modalContent} ref={modalRef} onClick={(e) => e.stopPropagation()}>
         <h2>{selectedTask ? t("editTask") : t("addTask")}</h2>
         <input
           type="text"
@@ -170,28 +197,37 @@ const TaskModal: React.FC<{
           onChange={(e) => console.log(e.target.files)}
           className={styles.fileInput}
         />
-        <div style={{ display: "flex", alignItems: "center" }}>
-          <textarea
-            name="comment"
-            placeholder="Add a comment"
-            value={comment}
-            onChange={(e) => setComment(e.target.value)}
-            className={styles.textArea}
-          />
-          <button onClick={handleCommentSubmit} className={styles.button}>
-            {t("save")}
-          </button>
-        </div>
-        {task.comments && task.comments.length > 0 && (
-          <div className={styles.commentSection}>
-            <h3>Comments</h3>
-            {task.comments.map((comment: Comment, index) => (
-              <div key={index} className={styles.comment}>
-                <p>{comment.text}</p>
-                <p className={styles.commentUser}>{comment.user}</p>
-              </div>
-            ))}
+        {selectedTask && selectedTask.id && (
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <textarea
+              name="comment"
+              placeholder="Add a comment"
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+              className={styles.textArea}
+            />
+            <button onClick={handleCommentSubmit} className={styles.button}>
+              {t("save")}
+            </button>
           </div>
+        )}
+        {comments && comments.length > 0 && (
+          <>
+            <h3>Comments</h3>
+
+            <div className={styles.commentSection}>
+              {comments.map((comment: Comment, index) => (
+                <div key={index} className={styles.comment}>
+                  <p>{comment.text}</p>
+                  <p className={styles.commentUser}>
+                    {getCommentUser(comment.userId)?.name +
+                      " " +
+                      getCommentUser(comment.userId)?.last_name}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </>
         )}
         <div className={styles.buttonGroup}>
           <button

@@ -1,24 +1,28 @@
 .modalOverlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.7);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-  }
-  
-  .modalContent {
-    background: white;
-    border-radius: 8px;
-    padding: 20px;
-    max-width: 80%;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    position: relative;
-  }
+  position: fixed; /* Use fixed positioning for full screen */
+  width: 100vw;    /* Corrected from 100wh to 100vw for viewport width */
+  height: 100vh;   /* Height is fine */
+  top: 0;
+  left: 0;         /* Added left to start from the left edge */
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 90;
+}
+
+.modalContent {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  max-width: 80%;
+  max-height: 80%;
+  overflow-y: auto;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  position: relative; /* Changed to relative for proper stacking context */
+  z-index: 1000;
+}
+
   
   .inputField,
   .textArea,
@@ -66,6 +70,10 @@
   
   .commentSection {
     margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    max-height: 200px;
+    overflow-y: auto;
   }
   
   .comment {

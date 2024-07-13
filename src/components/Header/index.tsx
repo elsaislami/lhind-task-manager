@@ -140,14 +140,6 @@ const Header: React.FC = () => {
           <span onClick={() => handleNavigation("/login")}>{"Login"}</span>
         )}
       </div>
-      <span className={styles.icon}>
-        <Bars3Icon
-          height={20}
-          width={20}
-          color="white"
-          onClick={() => setIsOpen(!isOpen)}
-        />
-      </span>
     </div>
   );
 };

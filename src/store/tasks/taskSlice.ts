@@ -3,10 +3,10 @@ import { axiosInstance } from "../../services/api";
 import { Comment, Task, TaskData } from "../../types";
 
 interface TasksState {
-  tasks: Task[];
+  tasks: TaskData[];
   loading: boolean;
   error: string | null;
-  paginationTasks: Task[];
+  paginationTasks: TaskData[];
   lastPage: boolean;
 }
 
@@ -153,6 +153,21 @@ const tasksSlice = createSlice({
       .addCase(fetchTasksForPagination.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message || "Failed to fetch tasks";
+      })
+      .addCase(addComment.fulfilled, (state, action) => {
+        const taskIndex = state.tasks.findIndex(
+          (task) => task.id === action.payload.taskId
+        );
+        if (taskIndex > -1) { 
+          state.tasks[taskIndex].comments?.push(action.payload);
+        }
+      
+        const taskIndexPag = state.paginationTasks.findIndex(
+          (task) => task.id === action.payload.taskId
+        );
+        if (taskIndexPag > -1) { 
+          state.paginationTasks[taskIndexPag].comments?.push(action.payload);
+        }
       });
   },
 });

@@ -17,7 +17,7 @@ import {
 import { useDispatch } from "react-redux";
 import { fetchTasks } from "../../store/tasks/taskSlice";
 import { getUsers } from "../../store/auth/authSlice";
-
+import styles from "./Reports.module.css";
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -106,7 +106,7 @@ const ReportScreen: React.FC = () => {
   return (
     <div>
       <h2>Task Performance Report</h2>
-      <div style={{ display: "flex", justifyContent: "space-around" }}>
+      <div className={styles.reportsContainer}>
         <div>
           <h3>Tasks by Priority</h3>
           <div

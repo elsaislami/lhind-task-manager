@@ -27,7 +27,7 @@ export interface Comment {
   id: string;
   taskId: string;
   text: string;
-  user: string;
+  userId: string;
   date: Date;
 }
 
