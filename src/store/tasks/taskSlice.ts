@@ -32,7 +32,7 @@ export const addTask = createAsyncThunk("tasks/addTask", async (task: Task) => {
 
 export const updateTask = createAsyncThunk(
   "tasks/updateTask",
-  async (task: TaskData | Task ) => {
+  async (task: TaskData ) => {
     const user = 'user' in task ? task.user : null;
     const comments = 'comments' in task ? task.comments : null;
 

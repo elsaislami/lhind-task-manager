@@ -190,10 +190,7 @@ button:disabled {
 }
 
 .delete-button {
-  width: 100%;
-  display: flex;
-  justify-content: end;
- 
+  width: 'fit-content';
 }
 
 .task-content {

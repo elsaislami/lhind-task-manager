@@ -146,6 +146,17 @@ const TaskModal: React.FC<{
               ))}
             </ul>
           )}
+          {task.user && (<>
+              <button
+                onClick={() => {
+                  setTask({ ...task, userId: "", user: undefined});
+                  setSelectedUserName("");
+                }}
+                className={styles.clearButton}
+              >
+                {t("removeAssignedUser")}
+              </button>
+          </>)}
         </div>
 
         <input

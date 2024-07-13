@@ -1,18 +1,18 @@
 {
-    "welcome": "Welcome",
-    "date_format": "{{date, MM/dd/yyyy}}",
-    "login": "Anmelden",
-    "username": "nutzername",
-    "password": "passwort",
-    "listView": "Listenansicht",
-    "gridView": "Rasteransicht ",
-    "calendarView": "Kalenderansicht",
-    "lowPriority": "Niedrige Priorität",
-    "mediumPriority": "Mittlere Priorität ",
-    "highPriority": "Hohe Priorität ",
-      "editTask": "Aufgabe aktualisieren",
-    "addTask": "Neue Aufgabe hinzufügen",
-      "save": "Speichern",
-        "cancel": "Stornieren"
-  }
-  
+  "welcome": "Welcome",
+  "date_format": "{{date, MM/dd/yyyy}}",
+  "login": "Anmelden",
+  "username": "nutzername",
+  "password": "passwort",
+  "listView": "Listenansicht",
+  "gridView": "Rasteransicht ",
+  "calendarView": "Kalenderansicht",
+  "lowPriority": "Niedrige Priorität",
+  "mediumPriority": "Mittlere Priorität ",
+  "highPriority": "Hohe Priorität ",
+  "editTask": "Aufgabe aktualisieren",
+  "addTask": "Neue Aufgabe hinzufügen",
+  "save": "Speichern",
+  "cancel": "Stornieren",
+  "removeAssignedUser": "Zugewiesenen Benutzer entfernen"
+}

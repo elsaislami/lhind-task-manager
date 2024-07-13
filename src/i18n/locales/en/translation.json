@@ -13,6 +13,7 @@
     "editTask": "Update Task",
     "addTask": "Add new task",
     "save":  "Save",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "removeAssignedUser": "Remove assigned user"
   }
   

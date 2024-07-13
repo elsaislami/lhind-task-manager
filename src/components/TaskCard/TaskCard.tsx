@@ -26,15 +26,17 @@ const TaskCard: React.FC<{
       className={`${className ? className : "task-card"} `}
       onClick={onPress}
     >
-      <button
-        className="delete-button"
-        onClick={(e) => {
-          e.stopPropagation();
-          handleDelete(task.id);
-        }}
-      >
-        <TrashIcon width={20} height={20} color="rgb(229, 65, 65)" />
-      </button>
+      <div style={{display: 'flex', justifyContent: 'end'}}>
+        <button
+          className="delete-button"
+          onClick={(e) => {
+            e.stopPropagation();
+            handleDelete(task.id);
+          }}
+        >
+          <TrashIcon width={20} height={20} color="rgb(229, 65, 65)" />
+        </button>
+      </div>
       <div className="task-content">
         <h3>{task.title}</h3>
         <p>{task.description}</p>
