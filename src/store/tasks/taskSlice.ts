@@ -98,17 +98,17 @@ const tasksSlice = createSlice({
 
         state.paginationTasks.push(action.payload);
       })
-      .addCase(updateTask.fulfilled, (state, action) => {
-        const index = state.tasks.findIndex(
-          (task) => task.id === action.payload.id
-        );
-        state.tasks[index] = action.payload;
+      // .addCase(updateTask.fulfilled, (state, action) => {
+      //   const index = state.tasks.findIndex(
+      //     (task) => task.id === action.payload.id
+      //   );
+      //   state.tasks[index] = action.payload;
 
-        const indexPag = state.paginationTasks.findIndex(
-          (task) => task.id === action.payload.id
-        );
-        state.paginationTasks[indexPag] = action.payload;
-      })
+      //   const indexPag = state.paginationTasks.findIndex(
+      //     (task) => task.id === action.payload.id
+      //   );
+      //   state.paginationTasks[indexPag] = action.payload;
+      // })
       .addCase(deleteTask.fulfilled, (state, action) => {
         state.tasks = state.tasks.filter((task) => task.id !== action.payload);
         state.paginationTasks = state.paginationTasks.filter(

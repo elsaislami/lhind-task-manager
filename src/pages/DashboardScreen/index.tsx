@@ -10,19 +10,24 @@ import TaskCalendar from "../../components/TaskCalendar";
 import { TaskData } from "../../types";
 import { v4 as uuidv4 } from "uuid";
 import GridView from "../../components/GridView/GirdView";
+import { use } from "i18next";
 
 const Dashboard: React.FC = () => {
+  const dispatch = useDispatch<AppDispatch>();
   const [view, setView] = useState("list");
   const [showModal, setShowModal] = useState(false);
   const [selectedTask, setSelectedTask] = useState<TaskData | null>(null);
   const [selectedPriority, setSelectedPriority] = useState<string>("");
-  const dispatch = useDispatch<AppDispatch>();
-  const tasks = useSelector((state: RootState) => state.tasks.tasks);
+  const {tasks} = useSelector((state: RootState) => state.tasks);
+
+  const [latestTasks, setLatestTasks] = useState<TaskData[]>([]);
+
   const { t } = useTranslation();
 
   const handleCloseModal = useCallback(() => {
     setShowModal(false);
     setSelectedTask(null);
+    dispatch(fetchTasks());
   }, []);
 
   const generateUniqueId = (): string => {
@@ -35,6 +40,8 @@ const Dashboard: React.FC = () => {
 
   const handleSaveTask = (task: TaskData) => {
     if (selectedTask) {
+      delete task.comments;
+      delete task.user;
       dispatch(updateTask(task));
     } else {
       const newTask = {
@@ -55,6 +62,12 @@ const Dashboard: React.FC = () => {
     setSelectedPriority(priority || "");
     setShowModal(true);
   };
+
+  useEffect(() => {
+    if (tasks.length > 0) {
+      setLatestTasks(tasks);
+    }
+  }, [tasks]);
 
   const Header = () => (
     <div className={styles.headerContainer}>
@@ -80,7 +93,7 @@ const Dashboard: React.FC = () => {
       <div className={styles.bodyAlign}>
         {view === "list" && <TaskList />}
         {view === "grid" && (
-          <GridView tasks={tasks} onOpenModal={handleOpenModal} />
+          <GridView tasks={latestTasks} onOpenModal={handleOpenModal} />
         )}
         {view === "calendar" && <TaskCalendar />}
       </div>

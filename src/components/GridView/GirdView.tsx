@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   DragDropContext,
   Droppable,
@@ -13,6 +13,7 @@ import TaskCard from "../TaskCard/TaskCard";
 import style from "./GridView.module.css";
 import { TaskData } from "../../types";
 import { useTranslation } from "react-i18next";
+import { use } from "i18next";
 
 interface Column {
   id: string;
@@ -28,32 +29,56 @@ interface GridViewProps {
 const GridView: React.FC<GridViewProps> = ({ tasks, onOpenModal }) => {
   const dispatch = useDispatch<AppDispatch>();
   const { t } = useTranslation();
-
   type ColumnKey = "low" | "medium" | "high";
 
-  const columns: Record<ColumnKey, Column> = {
+  const [columns, setColumns] = useState< Record<ColumnKey, Column>>({
     low: {
       id: "low",
       title: t("lowPriority"),
-      taskIds: tasks
-        .filter((task) => task.priority === "low")
-        .map((task) => task.id),
+      taskIds: [],
     },
     medium: {
       id: "medium",
       title: t("mediumPriority"),
-      taskIds: tasks
-        .filter((task) => task.priority === "medium")
-        .map((task) => task.id),
+      taskIds: [],
     },
     high: {
       id: "high",
       title: t("highPriority"),
-      taskIds: tasks
-        .filter((task) => task.priority === "high")
-        .map((task) => task.id),
+      taskIds: [],
     },
-  };
+  });
+
+  useEffect(() => {
+    if(tasks) {
+      console.log(tasks);
+      
+      setColumns({
+        low: {
+          id: "low",
+          title: t("lowPriority"),
+          taskIds: tasks
+            .filter((task) => task.priority === "low")
+            .map((task) => task.id),
+        },
+        medium: {
+          id: "medium",
+          title: t("mediumPriority"),
+          taskIds: tasks
+            .filter((task) => task.priority === "medium")
+            .map((task) => task.id),
+        },
+        high: {
+          id: "high",
+          title: t("highPriority"),
+          taskIds: tasks
+            .filter((task) => task.priority === "high")
+            .map((task) => task.id),
+        },
+      });
+    }
+  }, [tasks]);
+
 
   const handleDragEnd = (result: DropResult) => {
     const { source, destination } = result;

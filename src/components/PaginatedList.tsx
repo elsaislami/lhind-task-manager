@@ -4,6 +4,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { AppDispatch, RootState } from "../store";
 import { fetchTasksForPagination } from "../store/tasks/taskSlice";
 import styles from "./PaginatedList.module.css";
+import {
+  AdjustmentsHorizontalIcon,
+} from "@heroicons/react/24/solid";
 
 const PaginatedList: React.FC = () => {
   const dispatch = useDispatch() as AppDispatch;
@@ -58,6 +61,9 @@ const PaginatedList: React.FC = () => {
           onChange={(e) => setSearch(e.target.value)}
           className={styles.inputField}
         />
+        
+        <AdjustmentsHorizontalIcon width={20} height={20} color="black" />
+
       </div>
       <ul>
         {paginationTasks.map((item, index) => (

@@ -52,7 +52,6 @@ const TaskModal: React.FC<{
   ) => {
     const { name, value } = e.target;
 
-    console.log(name, value);
     setTask((prevTask) => ({
       ...prevTask,
       [name]: value,
