@@ -1,91 +1,97 @@
-import React, { useEffect, useState } from "react";
-import {
-  AdjustmentsHorizontalIcon,
-  MagnifyingGlassIcon,
-} from "@heroicons/react/24/solid";
+import React, { useEffect, useState, useCallback } from "react";
 import TaskList from "../../components/TaskList";
-import GirdView from "../../components/GridView/GirdView";
-import { useDispatch } from "react-redux";
-import { fetchTasks } from "../../store/tasks/taskSlice";
-import { AppDispatch } from "../../store";
+import { useDispatch, useSelector } from "react-redux";
+import { addTask, fetchTasks, updateTask } from "../../store/tasks/taskSlice";
+import { AppDispatch, RootState } from "../../store";
 import TaskModal from "../../components/TaskModal/TaskModal";
 import styles from "./Dashboard.module.css";
 import { useTranslation } from "react-i18next";
 import TaskCalendar from "../../components/TaskCalendar";
+import { TaskData } from "../../types";
+import { v4 as uuidv4 } from "uuid";
+import GridView from "../../components/GridView/GirdView";
 
 const Dashboard: React.FC = () => {
   const [view, setView] = useState("list");
   const [showModal, setShowModal] = useState(false);
+  const [selectedTask, setSelectedTask] = useState<TaskData | null>(null);
+  const [selectedPriority, setSelectedPriority] = useState<string>("");
   const dispatch = useDispatch<AppDispatch>();
+  const tasks = useSelector((state: RootState) => state.tasks.tasks);
   const { t } = useTranslation();
 
-  const handleCloseModal = () => {
+  const handleCloseModal = useCallback(() => {
     setShowModal(false);
+    setSelectedTask(null);
+  }, []);
+
+  const generateUniqueId = (): string => {
+    let newId = uuidv4();
+    while (tasks.some((task) => task.id === newId)) {
+      newId = uuidv4();
+    }
+    return newId;
+  };
+
+  const handleSaveTask = (task: TaskData) => {
+    if (selectedTask) {
+      dispatch(updateTask(task));
+    } else {
+      const newTask = {
+        ...task,
+        id: generateUniqueId(),
+      };
+      dispatch(addTask(newTask));
+    }
+    handleCloseModal();
   };
 
   useEffect(() => {
     dispatch(fetchTasks());
   }, [dispatch]);
 
-  return (
-    <div>
-      <div className={styles.headerContainer}>
-        <div className={styles.headerItems}>
-          <div>
+  const handleOpenModal = (task?: TaskData, priority?: string) => {
+    setSelectedTask(task || null);
+    setSelectedPriority(priority || "");
+    setShowModal(true);
+  };
+
+  const Header = () => (
+    <div className={styles.headerContainer}>
+      <div className={styles.headerItems}>
+        <div>
+          {["list", "grid", "calendar"].map((type) => (
             <button
-              className={view === "list" ? styles.active : ""}
-              onClick={() => setView("list")}
+              key={type}
+              className={view === type ? styles.active : ""}
+              onClick={() => setView(type)}
             >
-              {t("listView")}
+              {t(`${type}View`)}
             </button>
-            <button
-              className={view === "grid" ? styles.active : ""}
-              onClick={() => setView("grid")}
-            >
-              {t("gridView")}
-            </button>
-            <button
-              className={view === "calendar" ? styles.active : ""}
-              onClick={() => setView("calendar")}
-            >
-              {t("calendarView")}
-            </button>
-          </div>
-          <div>
-            <button onClick={() => {}}>
-              <AdjustmentsHorizontalIcon width={20} height={20} color="white" />
-            </button>
-          </div>
+          ))}
         </div>
       </div>
-      <div style={{ padding: 20, display: "flex", justifyContent: "center" }}>
-        <div style={{ maxWidth: "90%", width: '80%' }}>{view === "list" && <TaskList />}</div>
-          {view === "grid" && <GirdView />}
-        </div>
+    </div>
+  );
+
+  return (
+    <div>
+      <Header />
+      <div className={styles.bodyAlign}>
+        {view === "list" && <TaskList />}
+        {view === "grid" && (
+          <GridView tasks={tasks} onOpenModal={handleOpenModal} />
+        )}
+        {view === "calendar" && <TaskCalendar />}
+      </div>
 
       <TaskModal
-        onSave={() => alert("on save")}
+        onSave={handleSaveTask}
         showModal={showModal}
-        selectedTask={{
-          id: "1",
-          title: "Task 1",
-          description: "Description 1",
-          userId: "1",
-          priority: "High",
-          comments: [
-            {
-              id: "1",
-              taskId: "1",
-              text: "This is a comment on task 1",
-              user: "John",
-              date: new Date(),
-            },
-          ],
-        }}
-        onClose={handleCloseModal} // Pass the close handler
+        selectedTask={selectedTask}
+        priority={selectedPriority}
+        onClose={handleCloseModal}
       />
-
-      {view === "calendar" && <TaskCalendar />}
     </div>
   );
 };

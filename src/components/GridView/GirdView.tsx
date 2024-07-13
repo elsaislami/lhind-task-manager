@@ -1,33 +1,37 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   DragDropContext,
   Droppable,
   Draggable,
   DropResult,
 } from "react-beautiful-dnd";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../store";
-import { addTask, updateTask } from "../../store/tasks/taskSlice";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../store";
+import { updateTask } from "../../store/tasks/taskSlice";
 import { PlusCircleIcon } from "@heroicons/react/24/solid";
 import TaskCard from "../TaskCard/TaskCard";
 import style from "./GridView.module.css";
-import TaskModal from "../TaskModal/TaskModal";
 import { TaskData } from "../../types";
-import { v4 as uuidv4 } from "uuid";
 import { useTranslation } from "react-i18next";
 
-const GridView: React.FC = () => {
-  const dispatch = useDispatch<AppDispatch>();
-  const tasks = useSelector((state: RootState) => state.tasks.tasks);
-  const [showModal, setShowModal] = useState(false);
-  const [selectedTask, setSelectedTask] = useState<TaskData | null>(null);
-  const [selectedPriority, setSelectedPriority] = useState<string>("");
+interface Column {
+  id: string;
+  title: string;
+  taskIds: string[];
+}
 
+interface GridViewProps {
+  tasks: TaskData[];
+  onOpenModal: (task?: TaskData, priority?: string) => void;
+}
+
+const GridView: React.FC<GridViewProps> = ({ tasks, onOpenModal }) => {
+  const dispatch = useDispatch<AppDispatch>();
   const { t } = useTranslation();
 
-  const columns: {
-    [key: string]: { id: string; title: string; taskIds: string[] };
-  } = {
+  type ColumnKey = "low" | "medium" | "high";
+
+  const columns: Record<ColumnKey, Column> = {
     low: {
       id: "low",
       title: t("lowPriority"),
@@ -53,136 +57,91 @@ const GridView: React.FC = () => {
 
   const handleDragEnd = (result: DropResult) => {
     const { source, destination } = result;
-
     if (!destination) return;
-
     if (
       source.droppableId === destination.droppableId &&
       source.index === destination.index
-    ) {
+    )
       return;
-    }
 
-    const sourceColumn = columns[source.droppableId];
+    const sourceColumn = columns[source.droppableId as ColumnKey];
     const movedTaskId = sourceColumn.taskIds[source.index];
     const movedTask = tasks.find((task) => task.id === movedTaskId);
     if (!movedTask) return;
 
     const updatedTask = {
       ...movedTask,
-      priority: destination.droppableId as "low" | "medium" | "high",
+      priority: destination.droppableId as ColumnKey,
     };
-
     dispatch(updateTask(updatedTask));
   };
 
   const handleAddTask = (priority: string) => {
-    setSelectedPriority(priority);
-    setShowModal(true);
-    setSelectedTask(null);
-  };
-
-  const handleCloseModal = () => {
-    setShowModal(false);
-    setSelectedTask(null);
-  };
-
-  const generateUniqueId = (): string => {
-    let newId = uuidv4();
-    while (tasks.some((task) => task.id === newId)) {
-      newId = uuidv4();
-    }
-    return newId;
-  };
-
-  const handleSaveTask = (task: TaskData) => {
-    if (selectedTask) {
-      dispatch(updateTask(task));
-    } else {
-      const newTask = {
-        ...task,
-        id: generateUniqueId(),
-      };
-      dispatch(addTask(newTask));
-    }
-    handleCloseModal();
+    onOpenModal(undefined, priority);
   };
 
   const handleEditTask = (task: TaskData) => {
-    setSelectedTask(task);
-    setShowModal(true);
+    onOpenModal(task);
   };
 
   return (
-    <>
-      <DragDropContext onDragEnd={handleDragEnd}>
-        <div className="columns">
-          {Object.keys(columns).map((columnId) => {
-            const column = columns[columnId];
-            return (
-              <div key={column.id} className="column">
-                <div className={style.columnHeader}>
-                  <h3>{column.title}</h3>
-                  <button onClick={() => handleAddTask(column.id)}>
-                    <PlusCircleIcon
-                      width={24}
-                      height={24}
-                      color="rgb(255,173,0)"
-                    />
-                  </button>
-                </div>
-                <Droppable droppableId={column.id}>
-                  {(provided) => (
-                    <ul
-                      {...provided.droppableProps}
-                      ref={provided.innerRef}
-                      className="no-bullets"
-                    >
-                      {column.taskIds.map((taskId, index) => {
-                        const task = tasks.find((task) => task.id === taskId);
-                        if (!task) return null;
-                        return (
-                          <Draggable
-                            key={task.id}
-                            draggableId={task.id}
-                            index={index}
-                          >
-                            {(provided) => (
-                              <div
-                                ref={provided.innerRef}
-                                {...provided.draggableProps}
-                                {...provided.dragHandleProps}
-                              >
-                                <TaskCard
-                                  onPress={() => handleEditTask(task)}
-                                  className="grid-view-task"
-                                  task={task}
-                                />
-                              </div>
-                            )}
-                          </Draggable>
-                        );
-                      })}
-                      {provided.placeholder}
-                    </ul>
-                  )}
-                </Droppable>
+    <DragDropContext onDragEnd={handleDragEnd}>
+      <div className="columns">
+        {Object.keys(columns).map((columnId) => {
+          const column = columns[columnId as ColumnKey];
+          return (
+            <div key={column.id} className="column">
+              <div className={style.columnHeader}>
+                <h3>{column.title}</h3>
+                <button onClick={() => handleAddTask(column.id)}>
+                  <PlusCircleIcon
+                    width={24}
+                    height={24}
+                    color="rgb(255,173,0)"
+                  />
+                </button>
               </div>
-            );
-          })}
-        </div>
-      </DragDropContext>
-
-      {showModal && (
-        <TaskModal
-          selectedTask={selectedTask}
-          priority={selectedPriority}
-          showModal={showModal}
-          onClose={handleCloseModal}
-          onSave={handleSaveTask}
-        />
-      )}
-    </>
+              <Droppable droppableId={column.id}>
+                {(provided) => (
+                  <ul
+                    {...provided.droppableProps}
+                    ref={provided.innerRef}
+                    className="no-bullets"
+                  >
+                    {column.taskIds.map((taskId, index) => {
+                      const task = tasks.find((task) => task.id === taskId);
+                      if (!task) return null;
+                      return (
+                        <Draggable
+                          key={task.id}
+                          draggableId={task.id}
+                          index={index}
+                        >
+                          {(provided) => (
+                            <div
+                              ref={provided.innerRef}
+                              {...provided.draggableProps}
+                              {...provided.dragHandleProps}
+                            >
+                              <TaskCard
+                                onPress={() => handleEditTask(task)}
+                                className="grid-view-task"
+                                task={task}
+                              />
+                            </div>
+                          )}
+                        </Draggable>
+                      );
+                    })}
+                    {provided.placeholder}
+                  </ul>
+                )}
+              </Droppable>
+            </div>
+          );
+        })}
+      </div>
+    </DragDropContext>
   );
 };
 

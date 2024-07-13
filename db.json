@@ -12,28 +12,48 @@
       "title": "Implement responsive design for product listing page",
       "description": "The product listing page needs to be responsive to provide a better user experience on different screen sizes.",
       "userId": "3",
-      "priority": "low"
+      "priority": "high",
+      "comments": [],
+      "user": {
+        "id": "3",
+        "name": "David",
+        "last_name": "John",
+        "email": "david@example.com",
+        "password": "test",
+        "username": "david",
+        "role": "user"
+      }
     },
     {
-      "id": "10",
-      "title": "Add new feature",
-      "description": "Implement a new feature to enhance the functionality of the application.",
+      "id": "13ee9753-a708-4a45-9743-150273445f9b",
+      "title": "TESTTT",
+      "description": "ELSAA",
+      "priority": "high",
       "userId": "4",
-      "priority": "high"
+      "comments": [],
+      "user": {
+        "id": "4",
+        "name": "Roberto ",
+        "last_name": "Baggio",
+        "email": "robert@example.com",
+        "password": "test",
+        "username": "Robert",
+        "role": "user"
+      }
     },
     {
-      "id": "11",
-      "title": "Fix bug in login process",
-      "description": "There is a bug in the login process that prevents users from accessing their accounts. Need to investigate and fix the issue.",
-      "userId": "5",
-      "priority": "medium"
+      "id": "b8a014c4-b777-4fc0-9ca3-8c817b702057",
+      "title": "Medium priority task",
+      "description": "enjkdnjkvfnvd",
+      "priority": "medium",
+      "userId": "5"
     },
     {
-      "id": "b16f",
-      "title": "New Task",
-      "description": "New Description",
-      "userId": "2",
-      "priority": "high"
+      "id": "d38fa52a-1f8a-4d43-83e6-fb0f0d6f9b0f",
+      "title": "new task",
+      "description": "elsaghjkl",
+      "priority": "medium",
+      "userId": "6"
     }
   ],
   "users": [
