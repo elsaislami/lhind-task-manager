@@ -162,17 +162,17 @@ button:disabled {
 }
 
 .priority-high {
-  color: rgb(229, 65, 65);
+  color: #e54141;
   display: flex;
 }
 
 .priority-medium {
-  color: orange;
+  color: #ffa500;
   display: flex;
 }
 
 .priority-low {
-  color: green;
+  color: #008000;
   display: flex;
 }
 

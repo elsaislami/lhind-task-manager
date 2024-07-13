@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useCallback } from "react";
-import TaskList from "../../components/TaskList";
 import { useDispatch, useSelector } from "react-redux";
 import { addTask, fetchTasks, updateTask } from "../../store/tasks/taskSlice";
 import { AppDispatch, RootState } from "../../store";
@@ -10,7 +9,7 @@ import TaskCalendar from "../../components/TaskCalendar";
 import { TaskData } from "../../types";
 import { v4 as uuidv4 } from "uuid";
 import GridView from "../../components/GridView/GirdView";
-import { use } from "i18next";
+import ListView from "../../components/ListView/ListView";
 
 const Dashboard: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -18,7 +17,7 @@ const Dashboard: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedTask, setSelectedTask] = useState<TaskData | null>(null);
   const [selectedPriority, setSelectedPriority] = useState<string>("");
-  const {tasks} = useSelector((state: RootState) => state.tasks);
+  const { tasks } = useSelector((state: RootState) => state.tasks);
 
   const [latestTasks, setLatestTasks] = useState<TaskData[]>([]);
 
@@ -88,7 +87,7 @@ const Dashboard: React.FC = () => {
     <div>
       <Header />
       <div className={styles.bodyAlign}>
-        {view === "list" && <TaskList />}
+        {view === "list" && <ListView onOpenModal={handleOpenModal} />}
         {view === "grid" && (
           <GridView tasks={latestTasks} onOpenModal={handleOpenModal} />
         )}

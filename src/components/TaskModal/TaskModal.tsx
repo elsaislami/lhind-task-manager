@@ -19,13 +19,14 @@ const TaskModal: React.FC<{
   const modalRef = useRef<HTMLDivElement | null>(null);
   const { t } = useTranslation();
 
-  const [task, setTask] = useState<TaskData>({
+  const initialTaskObject = {
     id: "",
     title: "",
     description: "",
     priority: priority ? priority : "low",
     userId: "",
-  });
+  };
+  const [task, setTask] = useState<TaskData>(initialTaskObject);
 
   const [comment, setComment] = useState<string>("");
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -61,8 +62,7 @@ const TaskModal: React.FC<{
   const handleSearchInput = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     setSearchTerm(value);
-    if(selectedUserName)
-      setSelectedUserName("");
+    if (selectedUserName) setSelectedUserName("");
   };
 
   const handleCommentSubmit = () => {
@@ -84,13 +84,17 @@ const TaskModal: React.FC<{
       user: user,
     });
     setSelectedUserName(`${user.name} ${user.last_name}`);
-    if(searchTerm)
-      setSearchTerm("");
+    if (searchTerm) setSearchTerm("");
   };
 
   const filteredUsers = users.filter((user) =>
     user.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
+  const clearPageState = () => {
+    setSearchTerm("");
+    setSelectedUserName("");
+    setTask(initialTaskObject);
+  };
 
   if (!showModal) return null;
 
@@ -146,17 +150,19 @@ const TaskModal: React.FC<{
               ))}
             </ul>
           )}
-          {task.user && (<>
+          {task.user && (
+            <>
               <button
                 onClick={() => {
-                  setTask({ ...task, userId: "", user: undefined});
+                  setTask({ ...task, userId: "", user: undefined });
                   setSelectedUserName("");
                 }}
                 className={styles.clearButton}
               >
                 {t("removeAssignedUser")}
               </button>
-          </>)}
+            </>
+          )}
         </div>
 
         <input
@@ -188,12 +194,19 @@ const TaskModal: React.FC<{
           </div>
         )}
         <div className={styles.buttonGroup}>
-          <button onClick={onClose} className={styles.cancelButton}>
+          <button
+            onClick={() => {
+              onClose();
+              clearPageState();
+            }}
+            className={styles.cancelButton}
+          >
             {t("cancel")}
           </button>
           <button
             onClick={() => {
               onSave(task);
+              clearPageState();
               onClose();
             }}
             className={styles.saveButton}

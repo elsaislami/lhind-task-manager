@@ -9,7 +9,6 @@ const localizer = momentLocalizer(moment);
 
 const TaskCalendar: React.FC = () => {
   const tasks = useSelector((state: RootState) => state.tasks.tasks);
-  // const tasks = [{ title: "elsa", date: "07/07/2024" }];
 
   console.log("tasks", tasks);
 
@@ -28,7 +27,7 @@ const TaskCalendar: React.FC = () => {
   const events = tasks.map((task) => ({
     title: task.title,
     start: moment(task.date).toDate(),
-    end: moment(task.date).toDate(),
+    end: moment(task.due_date).toDate(),
   }));
 
   // alert(events);

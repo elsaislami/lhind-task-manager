@@ -1,46 +1,101 @@
 {
   "tasks": [
     {
-      "id": "5",
-      "title": "Fix bug in login process edited",
-      "description": "There is a bug in the login process that prevents users from accessing their accounts. Need to investigate and fix the issue.",
-      "userId": "5",
-      "priority": "low"
-    },
-    {
       "id": "7",
       "title": "Implement responsive design for product listing page",
       "description": "The product listing page needs to be responsive to provide a better user experience on different screen sizes.",
-      "userId": "3",
-      "priority": "high"
+      "userId": "5",
+      "priority": "low",
+      "date": "2024-07-11T13:38:27.947Z",
+      "due_date": "2024-08-11T13:38:27.947Z"
     },
     {
       "id": "13ee9753-a708-4a45-9743-150273445f9b",
       "title": "TESTTT",
       "description": "ELSAA",
-      "priority": "high",
-      "userId": "4"
+      "date": "2024-07-11T13:38:27.947Z",
+      "due_date": "2024-08-11T13:38:27.947Z",
+      "priority": "medium",
+      "userId": "5"
     },
     {
       "id": "b8a014c4-b777-4fc0-9ca3-8c817b702057",
       "title": "Medium priority task wd sd",
+      "date": "2024-07-11T13:38:27.947Z",
+      "due_date": "2024-08-11T13:38:27.947Z",
       "description": "enjkdnjkvfnvd",
-      "priority": "medium",
-      "userId": ""
+      "priority": "low",
+      "userId": "4"
     },
     {
       "id": "d38fa52a-1f8a-4d43-83e6-fb0f0d6f9b0f",
       "title": "new task",
       "description": "elsaghjkl",
-      "priority": "medium",
+      "date": "2024-07-11T13:38:27.947Z",
+      "due_date": "2024-08-11T13:38:27.947Z",
+      "priority": "high",
       "userId": "2"
     },
     {
       "id": "e42eb066-1522-4552-a947-c07f026c2be9",
+      "date": "2024-07-11T13:38:27.947Z",
+      "due_date": "2024-08-11T13:38:27.947Z",
       "title": "Fix bug in login proces",
       "description": "There is a bug in the login process that prevents users from accessing their accounts. Need to investigate and fix the issue.",
-      "userId": "4",
+      "userId": "1",
       "priority": "high"
+    },
+    {
+      "id": "8ec16dd7-b21e-4c86-b860-f8440756e883",
+      "date": "2024-07-11T13:38:27.947Z",
+      "due_date": "2024-08-11T13:38:27.947Z",
+      "title": "here",
+      "description": "test",
+      "priority": "low",
+      "userId": "4"
+    },
+    {
+      "id": "d3fe793e-904c-4a73-ae3b-1b669c30d035",
+      "date": "2024-07-11T13:38:27.947Z",
+      "due_date": "2024-08-11T13:38:27.947Z",
+      "title": "here",
+      "description": "test",
+      "priority": "low",
+      "userId": "4"
+    },
+    {
+      "id": "9a8610b1-c799-42f1-be52-020a8f6bd1be",
+      "date": "2024-07-11T13:38:27.947Z",
+      "due_date": "2024-08-11T13:38:27.947Z",
+      "title": "here",
+      "description": "test",
+      "priority": "medium",
+      "userId": "4"
+    },
+    {
+      "id": "1be1fb3b-267a-44a8-994d-c1a2bc1b6101",
+      "date": "2024-07-11T13:38:27.947Z",
+      "due_date": "2024-08-11T13:38:27.947Z",
+      "title": "here",
+      "description": "test",
+      "priority": "medium",
+      "userId": "5"
+    },
+    {
+      "id": "73d056c9-fe20-4c88-adc4-5e51fa5b3040",
+      "title": "Testing the form clear",
+      "description": "testing",
+      "priority": "medium",
+      "userId": "4",
+      "user": {
+        "id": "4",
+        "name": "Robert",
+        "last_name": "John",
+        "email": "robert@example.com",
+        "password": "test",
+        "username": "Robert",
+        "role": "user"
+      }
     }
   ],
   "users": [

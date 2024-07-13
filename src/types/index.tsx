@@ -20,6 +20,7 @@ export interface Task {
   userId: string;
   priority: string;
   date?: Date;
+  due_date?: Date;
 }
 
 export interface Comment {
@@ -37,6 +38,7 @@ export interface TaskData {
   userId: string;
   priority: string;
   date?: Date;
+  due_date?: Date;
   comments?: Comment[];
   user?: User;
 }
