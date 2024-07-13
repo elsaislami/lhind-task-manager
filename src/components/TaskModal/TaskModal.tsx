@@ -39,7 +39,6 @@ const TaskModal: React.FC<{
 
   useEffect(() => {
     if (selectedTask) {
-      console.log("selectedTask", selectedTask);
       setTask(selectedTask);
       const user = users.find((user) => user.id === selectedTask.userId);
       setSelectedUserName(user ? `${user.name} ${user.last_name}` : "");

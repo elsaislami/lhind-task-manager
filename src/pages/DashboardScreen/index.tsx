@@ -11,7 +11,6 @@ import { AppDispatch } from "../../store";
 import TaskModal from "../../components/TaskModal/TaskModal";
 import styles from "./Dashboard.module.css";
 import { useTranslation } from "react-i18next";
-import SearchModal from "../../components/SearchModal";
 import TaskCalendar from "../../components/TaskCalendar";
 
 const Dashboard: React.FC = () => {
@@ -19,7 +18,6 @@ const Dashboard: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
   const { t } = useTranslation();
-  const [showSearchModal, setShowSearchModal] = useState(false);
 
   const handleCloseModal = () => {
     setShowModal(false);
@@ -57,21 +55,13 @@ const Dashboard: React.FC = () => {
             <button onClick={() => {}}>
               <AdjustmentsHorizontalIcon width={20} height={20} color="white" />
             </button>
-            <button onClick={() => {}}>
-              <MagnifyingGlassIcon
-                width={20}
-                height={20}
-                color="white"
-                onClick={() => setShowSearchModal(true)}
-              />
-            </button>
           </div>
         </div>
       </div>
       <div style={{ padding: 20, display: "flex", justifyContent: "center" }}>
-        <div style={{ maxWidth: "80%" }}>{view === "list" && <TaskList />}</div>
-        {view === "grid" && <GirdView />}
-      </div>
+        <div style={{ maxWidth: "90%", width: '80%' }}>{view === "list" && <TaskList />}</div>
+          {view === "grid" && <GirdView />}
+        </div>
 
       <TaskModal
         onSave={() => alert("on save")}
@@ -95,7 +85,6 @@ const Dashboard: React.FC = () => {
         onClose={handleCloseModal} // Pass the close handler
       />
 
-      {showSearchModal && <SearchModal setShowModal={setShowModal} />}
       {view === "calendar" && <TaskCalendar />}
     </div>
   );

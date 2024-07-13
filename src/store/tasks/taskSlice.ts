@@ -57,17 +57,18 @@ export const addComment = createAsyncThunk(
 interface FetchTasksParams {
   page: number;
   perPage: number;
+  search?: string;
 }
 
 export const fetchTasksForPagination = createAsyncThunk(
   "tasks/fetchTasksForPagination",
   async (params: FetchTasksParams) => {
-    const { page, perPage } = params;
+    const { page, perPage, search } = params;
 
     const response = await axiosInstance.get(
       "/tasks?_embed=comments&_embed=user",
       {
-        params: { _page: page, _per_page: perPage },
+        params: { _page: page, _per_page: perPage, title: search || ''},
       }
     );
     return response.data;
@@ -117,6 +118,7 @@ const tasksSlice = createSlice({
       .addCase(fetchTasksForPagination.pending, (state) => {
         state.loading = true;
         state.error = null;
+        state.lastPage = false;
       })
       .addCase(fetchTasksForPagination.fulfilled, (state, action) => {
         state.loading = false;

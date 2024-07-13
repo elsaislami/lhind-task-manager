@@ -21,8 +21,6 @@ const TaskCard: React.FC<{
     return name?.charAt(0).toUpperCase();
   };
 
-  console.log(task);
-
   return (
     <div
       className={`${className ? className : "task-card"} `}
