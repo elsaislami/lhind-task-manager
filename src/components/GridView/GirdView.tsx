@@ -51,8 +51,6 @@ const GridView: React.FC<GridViewProps> = ({ tasks, onOpenModal }) => {
 
   useEffect(() => {
     if(tasks) {
-      console.log(tasks);
-      
       setColumns({
         low: {
           id: "low",

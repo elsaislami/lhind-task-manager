@@ -27,7 +27,6 @@ const Dashboard: React.FC = () => {
   const handleCloseModal = useCallback(() => {
     setShowModal(false);
     setSelectedTask(null);
-    dispatch(fetchTasks());
   }, []);
 
   const generateUniqueId = (): string => {
@@ -40,8 +39,6 @@ const Dashboard: React.FC = () => {
 
   const handleSaveTask = (task: TaskData) => {
     if (selectedTask) {
-      delete task.comments;
-      delete task.user;
       dispatch(updateTask(task));
     } else {
       const newTask = {

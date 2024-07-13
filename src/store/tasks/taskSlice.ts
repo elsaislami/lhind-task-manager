@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { axiosInstance } from "../../services/api";
-import { Comment, Task } from "../../types";
+import { Comment, Task, TaskData } from "../../types";
 
 interface TasksState {
   tasks: Task[];
@@ -32,8 +32,23 @@ export const addTask = createAsyncThunk("tasks/addTask", async (task: Task) => {
 
 export const updateTask = createAsyncThunk(
   "tasks/updateTask",
-  async (task: Task) => {
-    const response = await axiosInstance.put(`/tasks/${task.id}`, task);
+  async (task: TaskData | Task ) => {
+    const user = 'user' in task ? task.user : null;
+    const comments = 'comments' in task ? task.comments : null;
+
+    delete task.user;
+    delete task.comments;
+
+    let response = await axiosInstance.put(`/tasks/${task.id}`, task);
+
+    if (user) {
+      response.data.user = user;
+    }
+
+    if (comments) {
+      response.data.comments = comments;
+    }
+    
     return response.data;
   }
 );
@@ -98,17 +113,17 @@ const tasksSlice = createSlice({
 
         state.paginationTasks.push(action.payload);
       })
-      // .addCase(updateTask.fulfilled, (state, action) => {
-      //   const index = state.tasks.findIndex(
-      //     (task) => task.id === action.payload.id
-      //   );
-      //   state.tasks[index] = action.payload;
+      .addCase(updateTask.fulfilled, (state, action) => {
+        const index = state.tasks.findIndex(
+          (task) => task.id === action.payload.id
+        );
+        state.tasks[index] = action.payload;
 
-      //   const indexPag = state.paginationTasks.findIndex(
-      //     (task) => task.id === action.payload.id
-      //   );
-      //   state.paginationTasks[indexPag] = action.payload;
-      // })
+        const indexPag = state.paginationTasks.findIndex(
+          (task) => task.id === action.payload.id
+        );
+        state.paginationTasks[indexPag] = action.payload;
+      })
       .addCase(deleteTask.fulfilled, (state, action) => {
         state.tasks = state.tasks.filter((task) => task.id !== action.payload);
         state.paginationTasks = state.paginationTasks.filter(

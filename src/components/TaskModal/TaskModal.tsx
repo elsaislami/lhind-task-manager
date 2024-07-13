@@ -61,7 +61,8 @@ const TaskModal: React.FC<{
   const handleSearchInput = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     setSearchTerm(value);
-    setSelectedUserName("");
+    if(selectedUserName)
+      setSelectedUserName("");
   };
 
   const handleCommentSubmit = () => {
@@ -80,9 +81,11 @@ const TaskModal: React.FC<{
     setTask({
       ...task,
       userId: user.id,
+      user: user,
     });
     setSelectedUserName(`${user.name} ${user.last_name}`);
-    setSearchTerm("");
+    if(searchTerm)
+      setSearchTerm("");
   };
 
   const filteredUsers = users.filter((user) =>
