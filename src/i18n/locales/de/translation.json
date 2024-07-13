@@ -9,6 +9,10 @@
     "calendarView": "Kalenderansicht",
     "lowPriority": "Niedrige Priorität",
     "mediumPriority": "Mittlere Priorität ",
-    "highPriority": "Hohe Priorität "
+    "highPriority": "Hohe Priorität ",
+      "editTask": "Aufgabe aktualisieren",
+    "addTask": "Neue Aufgabe hinzufügen",
+      "save": "Speichern",
+        "cancel": "Stornieren"
   }
   

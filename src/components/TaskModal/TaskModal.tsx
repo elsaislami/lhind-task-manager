@@ -1,17 +1,19 @@
 import React, { useState, ChangeEvent, useEffect, useRef } from "react";
-import { Comment, TaskData } from "../../types";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../store";
+import { Comment, TaskData, User } from "../../types";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../store";
 import { addComment } from "../../store/tasks/taskSlice";
 import styles from "./TaskModal.module.css";
 import { useTranslation } from "react-i18next";
+import { getUsers } from "../../store/auth/authSlice";
 
 const TaskModal: React.FC<{
   selectedTask: TaskData | null;
   priority?: string;
   showModal: boolean;
+
   onClose: () => void;
-  onSave: (task: TaskData) => void; // New prop for save handler
+  onSave: (task: TaskData) => void;
 }> = ({ selectedTask, priority, showModal, onClose, onSave }) => {
   const dispatch = useDispatch<AppDispatch>();
   const modalRef = useRef<HTMLDivElement | null>(null);
@@ -26,15 +28,42 @@ const TaskModal: React.FC<{
   });
 
   const [comment, setComment] = useState<string>("");
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [selectedUserName, setSelectedUserName] = useState<string>("");
+
+  const users = useSelector((state: RootState) => state.auth.users);
+
+  useEffect(() => {
+    dispatch(getUsers());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (selectedTask) {
+      console.log("selectedTask", selectedTask);
+      setTask(selectedTask);
+      const user = users.find((user) => user.id === selectedTask.userId);
+      setSelectedUserName(user ? `${user.name} ${user.last_name}` : "");
+    } else if (priority) {
+      setTask((prev) => ({ ...prev, priority }));
+    }
+  }, [selectedTask, priority, users]);
 
   const handleInputChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
-    setTask({
-      ...task,
+
+    console.log(name, value);
+    setTask((prevTask) => ({
+      ...prevTask,
       [name]: value,
-    });
+    }));
+  };
+
+  const handleSearchInput = (e: ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setSearchTerm(value);
+    setSelectedUserName("");
   };
 
   const handleCommentSubmit = () => {
@@ -49,38 +78,25 @@ const TaskModal: React.FC<{
     setComment("");
   };
 
-  useEffect(() => {
-    if (selectedTask) {
-      setTask(selectedTask);
-    } else if (priority) {
-      setTask((prev) => ({ ...prev, priority }));
-    }
-  }, [selectedTask, priority]);
-
-  const handleOutsideClick = (e: MouseEvent) => {
-    if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
-      onClose();
-    }
+  const handleUserSelect = (user: User) => {
+    setTask({
+      ...task,
+      userId: user.id,
+    });
+    setSelectedUserName(`${user.name} ${user.last_name}`);
+    setSearchTerm("");
   };
 
-  useEffect(() => {
-    if (showModal) {
-      document.addEventListener("mousedown", handleOutsideClick);
-    } else {
-      document.removeEventListener("mousedown", handleOutsideClick);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleOutsideClick);
-    };
-  }, [showModal]);
+  const filteredUsers = users.filter((user) =>
+    user.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   if (!showModal) return null;
 
   return (
     <div className={styles.modalOverlay}>
       <div className={styles.modalContent} ref={modalRef}>
-        <h2>{selectedTask ? "Edit Task" : "Add New Task"}</h2>
+        <h2>{selectedTask ? t("editTask") : t("addTask")}</h2>
         <input
           type="text"
           name="title"
@@ -102,18 +118,35 @@ const TaskModal: React.FC<{
           onChange={handleInputChange}
           className={styles.selectField}
         >
-          <option value="low"> {t("lowPriority")} </option>
+          <option value="low">{t("lowPriority")}</option>
           <option value="medium">{t("mediumPriority")}</option>
           <option value="high">{t("highPriority")}</option>
         </select>
-        <input
-          type="text"
-          name="assignedTo"
-          placeholder="Assign to user"
-          value={task.userId}
-          onChange={handleInputChange}
-          className={styles.inputField}
-        />
+
+        <div className={styles.selectContainer}>
+          <input
+            type="text"
+            placeholder="Assign to user"
+            autoComplete="off"
+            value={selectedUserName || searchTerm}
+            onChange={handleSearchInput}
+            className={styles.inputField}
+          />
+          {searchTerm && filteredUsers.length > 0 && (
+            <ul className={styles.suggestionsList}>
+              {filteredUsers.map((user, index) => (
+                <li
+                  key={index}
+                  className={styles.suggestionItem}
+                  onClick={() => handleUserSelect(user)}
+                >
+                  {user.name} {user.last_name} (ID: {user.id})
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+
         <input
           type="file"
           onChange={(e) => console.log(e.target.files)}
@@ -128,7 +161,7 @@ const TaskModal: React.FC<{
             className={styles.textArea}
           />
           <button onClick={handleCommentSubmit} className={styles.button}>
-            Save
+            {t("save")}
           </button>
         </div>
         {task.comments && task.comments.length > 0 && (
@@ -144,7 +177,7 @@ const TaskModal: React.FC<{
         )}
         <div className={styles.buttonGroup}>
           <button onClick={onClose} className={styles.cancelButton}>
-            Cancel
+            {t("cancel")}
           </button>
           <button
             onClick={() => {
@@ -153,7 +186,7 @@ const TaskModal: React.FC<{
             }}
             className={styles.saveButton}
           >
-            Save
+            {t("save")}
           </button>
         </div>
       </div>

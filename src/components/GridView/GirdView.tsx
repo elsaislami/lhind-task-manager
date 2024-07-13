@@ -101,11 +101,16 @@ const GridView: React.FC = () => {
     } else {
       const newTask = {
         ...task,
-        id: generateUniqueId(), // Assigning a unique ID to the new task
+        id: generateUniqueId(),
       };
       dispatch(addTask(newTask));
     }
     handleCloseModal();
+  };
+
+  const handleEditTask = (task: TaskData) => {
+    setSelectedTask(task);
+    setShowModal(true);
   };
 
   return (
@@ -149,6 +154,7 @@ const GridView: React.FC = () => {
                                 {...provided.dragHandleProps}
                               >
                                 <TaskCard
+                                  onPress={() => handleEditTask(task)}
                                   className="grid-view-task"
                                   task={task}
                                 />

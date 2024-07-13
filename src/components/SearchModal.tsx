@@ -7,11 +7,10 @@ const SearchModal: React.FC<{
 }> = ({ setShowModal }) => {
   const modalRef = useRef<HTMLDivElement | null>(null);
 
-  const [search, setSearch] = useState<string>('');
+  const [search, setSearch] = useState<string>("");
 
   useEffect(() => {
-   console.log('Search value:', search);
-   
+    console.log("Search value:", search);
   }, [search]);
 
   return (

@@ -43,6 +43,7 @@ const Header: React.FC = () => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const { i18n } = useTranslation();
+  const [selectedLanguage, setSelectedLanguage] = useState(i18n.language);
 
   const handleNavigation = (path: string) => {
     if (path === "/logout") {
@@ -60,6 +61,7 @@ const Header: React.FC = () => {
 
   const handleLanguageChange = (language: string) => {
     i18n.changeLanguage(language);
+    setSelectedLanguage(language);
   };
 
   return (
@@ -115,13 +117,17 @@ const Header: React.FC = () => {
 
       <div className={styles.right}>
         <span
-          className={styles.languageSwitcher}
+          className={`${styles.languageSwitcher} ${
+            selectedLanguage === "en" ? styles.selectedLanguage : ""
+          }`}
           onClick={() => handleLanguageChange("en")}
         >
           EN
         </span>
         <span
-          className={styles.languageSwitcher}
+          className={`${styles.languageSwitcher} ${
+            selectedLanguage === "de" ? styles.selectedLanguage : ""
+          }`}
           onClick={() => handleLanguageChange("de")}
         >
           DE

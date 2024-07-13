@@ -9,6 +9,10 @@
     "calendarView": "Calendar View",
     "lowPriority": "Low Priority",
     "mediumPriority": "Medium Priority",
-    "highPriority": "High Priority"
+    "highPriority": "High Priority",
+    "editTask": "Update Task",
+    "addTask": "Add new task",
+    "save":  "Save",
+    "cancel": "Cancel"
   }
   

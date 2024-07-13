@@ -6,6 +6,7 @@ interface AuthState {
   isAuthenticated: boolean;
   loading: boolean;
   error: string | null;
+  users: User[];
   user: {
     id: string;
     role: "admin" | "user" | null;
@@ -21,9 +22,9 @@ const initialState: AuthState = {
   loading: false,
   error: null,
   user: null,
+  users: [],
 };
 
-// Check if local storage has user
 const storedUser = localStorage.getItem("user");
 if (storedUser) {
   const parsedUser = JSON.parse(storedUser);
@@ -34,7 +35,9 @@ if (storedUser) {
 export const getUserByUsername = createAsyncThunk(
   "users/getUserByUsername",
   async (payload: LoginForm) => {
-    const response = await axiosInstance.get(`users?username=${payload.username}`);
+    const response = await axiosInstance.get(
+      `users?username=${payload.username}`
+    );
     if (response.status !== 200) {
       throw new Error("Failed to fetch user");
     }
@@ -49,6 +52,11 @@ export const getUserByUsername = createAsyncThunk(
     return user;
   }
 );
+
+export const getUsers = createAsyncThunk("users/fetchUsers", async () => {
+  const response = await axiosInstance.get("/users");
+  return response.data;
+});
 
 const authSlice = createSlice({
   name: "auth",
@@ -77,6 +85,16 @@ const authSlice = createSlice({
       .addCase(getUserByUsername.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message || "Failed to fetch user";
+      });
+    builder
+      .addCase(getUsers.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getUsers.fulfilled, (state, action: PayloadAction<User[]>) => {
+        state.loading = false;
+        state.users = action.payload;
+        state.error = null;
       });
   },
 });

@@ -5,16 +5,14 @@ import {
 } from "@heroicons/react/24/solid";
 import TaskList from "../../components/TaskList";
 import GirdView from "../../components/GridView/GirdView";
-// import TaskCalendar from "./TaskCalendar";
 import { useDispatch } from "react-redux";
-import {
-  fetchTasks,
-} from "../../store/tasks/taskSlice";
+import { fetchTasks } from "../../store/tasks/taskSlice";
 import { AppDispatch } from "../../store";
 import TaskModal from "../../components/TaskModal/TaskModal";
 import styles from "./Dashboard.module.css";
 import { useTranslation } from "react-i18next";
 import SearchModal from "../../components/SearchModal";
+import TaskCalendar from "../../components/TaskCalendar";
 
 const Dashboard: React.FC = () => {
   const [view, setView] = useState("list");
@@ -34,8 +32,7 @@ const Dashboard: React.FC = () => {
   return (
     <div>
       <div className={styles.headerContainer}>
-        <div
-        className={styles.headerItems}>
+        <div className={styles.headerItems}>
           <div>
             <button
               className={view === "list" ? styles.active : ""}
@@ -61,15 +58,18 @@ const Dashboard: React.FC = () => {
               <AdjustmentsHorizontalIcon width={20} height={20} color="white" />
             </button>
             <button onClick={() => {}}>
-              <MagnifyingGlassIcon width={20} height={20} color="white" onClick={() => setShowSearchModal(true)} />
+              <MagnifyingGlassIcon
+                width={20}
+                height={20}
+                color="white"
+                onClick={() => setShowSearchModal(true)}
+              />
             </button>
           </div>
         </div>
       </div>
-      <div style={{ padding: 20, display: 'flex', justifyContent: 'center' }}>
-        <div style={{maxWidth: '80%'}}>
-          {view === "list" && <TaskList />}
-        </div>
+      <div style={{ padding: 20, display: "flex", justifyContent: "center" }}>
+        <div style={{ maxWidth: "80%" }}>{view === "list" && <TaskList />}</div>
         {view === "grid" && <GirdView />}
       </div>
 
@@ -95,10 +95,8 @@ const Dashboard: React.FC = () => {
         onClose={handleCloseModal} // Pass the close handler
       />
 
-      { showSearchModal &&
-        <SearchModal setShowModal={setShowModal} />
-      }
-      {/* {view === "calendar" && <TaskCalendar />} */}
+      {showSearchModal && <SearchModal setShowModal={setShowModal} />}
+      {view === "calendar" && <TaskCalendar />}
     </div>
   );
 };

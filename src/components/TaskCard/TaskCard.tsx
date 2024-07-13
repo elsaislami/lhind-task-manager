@@ -1,15 +1,16 @@
 import React from "react";
 import { TrashIcon, ChartBarIcon } from "@heroicons/react/24/solid";
-import { Task, TaskData } from "../../types";
+import { TaskData } from "../../types";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../store";
 import { deleteTask } from "../../store/tasks/taskSlice";
 import "./TaskCard.module.css";
 
-const TaskCard: React.FC<{ task: TaskData; className?: string }> = ({
-  task,
-  className,
-}) => {
+const TaskCard: React.FC<{
+  task: TaskData;
+  className?: string;
+  onPress?: () => void;
+}> = ({ task, className, onPress }) => {
   const dispatch = useDispatch<AppDispatch>();
 
   const handleDelete = (taskId: string) => {
@@ -20,9 +21,20 @@ const TaskCard: React.FC<{ task: TaskData; className?: string }> = ({
     return name?.charAt(0).toUpperCase();
   };
 
+  console.log(task);
+
   return (
-    <div className={`${className ? className : "task-card"} `}>
-      <button className="delete-button" onClick={() => handleDelete(task.id)}>
+    <div
+      className={`${className ? className : "task-card"} `}
+      onClick={onPress}
+    >
+      <button
+        className="delete-button"
+        onClick={(e) => {
+          e.stopPropagation();
+          handleDelete(task.id);
+        }}
+      >
         <TrashIcon width={20} height={20} color="rgb(229, 65, 65)" />
       </button>
       <div className="task-content">
@@ -33,7 +45,13 @@ const TaskCard: React.FC<{ task: TaskData; className?: string }> = ({
             <ChartBarIcon width={16} height={16} color="lightgrey" />
             {task.priority}
           </p>
-          <div className="avatar">{task.user ? getInitial(task.user.name) + ''  +getInitial(task.user.last_name): ''}</div>
+          <div className="avatar">
+            {task.user
+              ? getInitial(task.user.name) +
+                "" +
+                getInitial(task.user.last_name)
+              : ""}
+          </div>
         </div>
       </div>
     </div>
