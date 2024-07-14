@@ -28,6 +28,8 @@ interface GridViewProps {
 const GridView: React.FC<GridViewProps> = ({ tasks, onOpenModal }) => {
   const dispatch = useDispatch<AppDispatch>();
   const { t, i18n } = useTranslation();
+  const [search, setSearch] = useState<string>("");
+
   type ColumnKey = "low" | "medium" | "high";
 
   const [columns, setColumns] = useState<Record<ColumnKey, Column>>({
@@ -49,32 +51,38 @@ const GridView: React.FC<GridViewProps> = ({ tasks, onOpenModal }) => {
   });
 
   useEffect(() => {
-    if (tasks) {
+    if(tasks) {
+      let taskArray = tasks;
+
+      if(search) {
+        taskArray = tasks.filter((task) => task.title.toLowerCase().includes(search.toLowerCase()));
+      }
       setColumns({
         low: {
           id: "low",
           title: t("lowPriority"),
-          taskIds: tasks
+          taskIds: taskArray
             .filter((task) => task.priority === "low")
             .map((task) => task.id),
         },
         medium: {
           id: "medium",
           title: t("mediumPriority"),
-          taskIds: tasks
+          taskIds: taskArray
             .filter((task) => task.priority === "medium")
             .map((task) => task.id),
         },
         high: {
           id: "high",
           title: t("highPriority"),
-          taskIds: tasks
+          taskIds: taskArray
             .filter((task) => task.priority === "high")
             .map((task) => task.id),
         },
       });
     }
-  }, [tasks, i18n.language]);
+  }, [tasks, search, i18n.language]);
+
 
   const handleDragEnd = (result: DropResult) => {
     const { source, destination } = result;
@@ -105,7 +113,20 @@ const GridView: React.FC<GridViewProps> = ({ tasks, onOpenModal }) => {
     onOpenModal(task);
   };
 
+
   return (
+    <>
+    <div>
+        <h2>{t("searchTask")}</h2>
+        <input
+          type="text"
+          name="title"
+          placeholder="Title"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className={style.inputField}
+        />
+      </div>
     <DragDropContext onDragEnd={handleDragEnd}>
       <div className="columns">
         {Object.keys(columns).map((columnId) => {
@@ -163,6 +184,8 @@ const GridView: React.FC<GridViewProps> = ({ tasks, onOpenModal }) => {
         })}
       </div>
     </DragDropContext>
+    </>
+
   );
 };
 

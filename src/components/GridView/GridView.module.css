@@ -28,6 +28,15 @@
   padding: 0;
 }
 
+.inputField {
+  width: 100%;
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
 @media (max-width: 992px) {
   .columns {
     flex-direction: column;
