@@ -7,50 +7,39 @@
       "userId": "5",
       "priority": "low",
       "date": "2024-07-11T13:38:27.947Z",
-      "due_date": "2024-08-11T13:38:27.947Z"
+      "due_date": "2024-07-12T13:38:27.947Z"
     },
     {
       "id": "13ee9753-a708-4a45-9743-150273445f9b",
-      "title": "TESTTT",
-      "description": "ELSAA",
-      "date": "2024-07-11T13:38:27.947Z",
-      "due_date": "2024-08-11T13:38:27.947Z",
+      "title": "Add multilanguage options",
+      "description": "Support multiple languages and locales with\nlocalization for date formats and text translations.",
+      "date": "2024-07-13T13:38:27.947Z",
+      "due_date": "2024-07-14T13:38:27.947Z",
       "priority": "high",
       "userId": "5"
     },
     {
       "id": "b8a014c4-b777-4fc0-9ca3-8c817b702057",
-      "title": "Medium priority task wd sd",
+      "title": "Authentication",
       "date": "2024-07-11T13:38:27.947Z",
-      "due_date": "2024-08-11T13:38:27.947Z",
-      "description": "enjkdnjkvfnvd",
+      "due_date": "2024-07-16T13:38:27.947Z",
+      "description": "User Authentication and Authorization: Implement a simulated authentication mechanism\nwith role-based access control (RBAC).",
       "priority": "medium",
       "userId": "4"
     },
     {
-      "id": "e42eb066-1522-4552-a947-c07f026c2be9",
-      "date": "2024-07-11T13:38:27.947Z",
-      "due_date": "2024-08-11T13:38:27.947Z",
-      "title": "Fix bug in login proces",
-      "description": "There is a bug in the login process that prevents users from accessing their accounts. Need to investigate and fix the issue.",
-      "userId": "1",
-      "priority": "high"
+      "id": "73d056c9-fe20-4c88-adc4-5e51fa5b3040",
+      "title": "Management",
+      "description": "Enable task creation, update, delete, assignment, and prioritization\nwith drag-and-drop functionality.",
+      "priority": "medium",
+      "userId": "4"
     },
     {
-      "id": "73d056c9-fe20-4c88-adc4-5e51fa5b3040",
-      "title": "Testing the form clear",
-      "description": "testing",
+      "id": "605ecd9a-afa3-493a-af83-3f0e64d7b926",
+      "title": "Test",
+      "description": "test Description",
       "priority": "medium",
-      "userId": "4",
-      "user": {
-        "id": "4",
-        "name": "Robert",
-        "last_name": "John",
-        "email": "robert@example.com",
-        "password": "test",
-        "username": "Robert",
-        "role": "user"
-      }
+      "userId": "5"
     }
   ],
   "users": [
