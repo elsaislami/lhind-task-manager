@@ -13,15 +13,7 @@ const TaskCalendar: React.FC = () => {
   console.log("tasks", tasks);
 
   const handleSelectSlot = (slotInfo: { start: Date; end: Date }) => {
-    alert("here");
-    // const title = window.prompt("New Event name");
-    // if (title) {
-    //   const newTask = {
-    //     title,
-    //     date: slotInfo.start,
-    //   };
-    // dispatch(addTask(newTask)); // Dispatching action to add a new task
-    // setNewEvent({ title, start: slotInfo.start, end: slotInfo.end });
+    console.log(slotInfo);
   };
 
   const events = tasks.map((task) => ({
@@ -29,8 +21,6 @@ const TaskCalendar: React.FC = () => {
     start: moment(task.date).toDate(),
     end: moment(task.due_date).toDate(),
   }));
-
-  // alert(events);
 
   return (
     <div style={{ height: "500px" }}>

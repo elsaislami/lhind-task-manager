@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import styles from "./Header.module.css";
 import {
-  Bars3Icon,
   HomeIcon,
   ArrowRightOnRectangleIcon,
   ChartPieIcon,
@@ -21,12 +20,12 @@ const loggedInLinks = [
 ];
 
 const unLoggedLinks = [
-  {
-    title: "Home",
-    path: "/",
-    icon: HomeIcon,
-  },
-];
+  // {
+  //   title: "Home",
+  //   path: "/",
+  //   icon: HomeIcon,
+  // },
+] as any;
 
 const adminLinks = [
   {
@@ -41,7 +40,6 @@ const Header: React.FC = () => {
     (state: RootState) => state.auth
   );
   const navigate = useNavigate();
-  const [isOpen, setIsOpen] = useState(false);
   const { i18n } = useTranslation();
   const [selectedLanguage, setSelectedLanguage] = useState(i18n.language);
 
@@ -65,7 +63,7 @@ const Header: React.FC = () => {
   };
 
   return (
-    <div className={`${styles.topnav} ${isOpen ? styles.responsive : ""}`}>
+    <div className={styles.topnav}>
       <div className={styles.left}>
         {isAuthenticated ? (
           <>
@@ -100,7 +98,7 @@ const Header: React.FC = () => {
           </>
         ) : (
           <>
-            {unLoggedLinks.map((link, index) => (
+            {unLoggedLinks?.map((link: any, index: number) => (
               <span
                 key={index}
                 className={

@@ -32,9 +32,9 @@ export const addTask = createAsyncThunk("tasks/addTask", async (task: Task) => {
 
 export const updateTask = createAsyncThunk(
   "tasks/updateTask",
-  async (task: TaskData ) => {
-    const user = 'user' in task ? task.user : null;
-    const comments = 'comments' in task ? task.comments : null;
+  async (task: TaskData) => {
+    const user = "user" in task ? task.user : null;
+    const comments = "comments" in task ? task.comments : null;
 
     delete task.user;
     delete task.comments;
@@ -48,7 +48,7 @@ export const updateTask = createAsyncThunk(
     if (comments) {
       response.data.comments = comments;
     }
-    
+
     return response.data;
   }
 );
@@ -73,19 +73,30 @@ interface FetchTasksParams {
   page: number;
   perPage: number;
   search?: string;
+  priority?: string;
+  user?: string;
 }
 
 export const fetchTasksForPagination = createAsyncThunk(
   "tasks/fetchTasksForPagination",
   async (params: FetchTasksParams) => {
-    const { page, perPage, search } = params;
+    const { page, perPage, search, priority, user } = params;
+
+    const queryParams: any = {
+      _page: page,
+      _per_page: perPage,
+      title: search || "",
+      priority: priority || "",
+      userId: user || "",
+    };
 
     const response = await axiosInstance.get(
       "/tasks?_embed=comments&_embed=user",
       {
-        params: { _page: page, _per_page: perPage, title: search || ''},
+        params: queryParams,
       }
     );
+
     return response.data;
   }
 );
@@ -158,14 +169,14 @@ const tasksSlice = createSlice({
         const taskIndex = state.tasks.findIndex(
           (task) => task.id === action.payload.taskId
         );
-        if (taskIndex > -1) { 
+        if (taskIndex > -1) {
           state.tasks[taskIndex].comments?.push(action.payload);
         }
-      
+
         const taskIndexPag = state.paginationTasks.findIndex(
           (task) => task.id === action.payload.taskId
         );
-        if (taskIndexPag > -1) { 
+        if (taskIndexPag > -1) {
           state.paginationTasks[taskIndexPag].comments?.push(action.payload);
         }
       });

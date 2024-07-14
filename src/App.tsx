@@ -2,6 +2,7 @@ import React from "react";
 import {
   createBrowserRouter,
   RouterProvider,
+  Navigate,
 } from "react-router-dom";
 import Login from "./pages/LoginScreen/index";
 import DashboardScreen from "./pages/DashboardScreen";
@@ -32,32 +33,40 @@ const App: React.FC = () => {
     const { user } = store.getState().auth;
 
     if (user) {
-      return unFilteredRoutes.filter(
-        (route: any) => {
-          if (route.allowed_roles) {
-            return route.allowed_roles.includes(user.role) || route.allowed_roles.includes("all");
-          }
-          return true;
+      return unFilteredRoutes.filter((route: any) => {
+        if (route.allowed_roles) {
+          return (
+            route.allowed_roles.includes(user.role) ||
+            route.allowed_roles.includes("all")
+          );
         }
-      );
+        return true;
+      });
     }
-    return unFilteredRoutes.filter(
-      (route: any) =>  !route.allowed_roles);
+    return unFilteredRoutes.filter((route: any) => !route.allowed_roles);
   };
 
-  const router = createBrowserRouter([
+  const routes = [
     {
       path: "/",
       element: <Layout />,
-      children: filteredRoutes(),
+      children: [
+        ...filteredRoutes(),
+        {
+          path: "/",
+          element: <Navigate to="/login" replace />,
+        },
+      ],
     },
-  ]);
+  ];
+
+  const router = createBrowserRouter(routes);
 
   return (
     <Provider store={store}>
       <RouterProvider router={router} />
     </Provider>
   );
-}
+};
 
 export default App;

@@ -1,9 +1,9 @@
   {
     "welcome": "Welcome",
-    "login": "login",
+    "login": "Login",
     "date_format": "{{date, dd/MM/yyyy}}",
-    "username": "username",
-    "password": "password",
+    "username": "Username",
+    "password": "Password",
     "listView": "List View",
     "gridView": "Grid View",
     "calendarView": "Calendar View",
@@ -14,6 +14,7 @@
     "addTask": "Add new task",
     "save":  "Save",
     "cancel": "Cancel",
-    "removeAssignedUser": "Remove assigned user"
+    "removeAssignedUser": "Remove assigned user",
+     "searchTask": "Search Task"
   }
   

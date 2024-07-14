@@ -2,8 +2,8 @@
   "welcome": "Welcome",
   "date_format": "{{date, MM/dd/yyyy}}",
   "login": "Anmelden",
-  "username": "nutzername",
-  "password": "passwort",
+  "username": "Nutzername",
+  "password": "Passwort",
   "listView": "Listenansicht",
   "gridView": "Rasteransicht ",
   "calendarView": "Kalenderansicht",
@@ -14,5 +14,6 @@
   "addTask": "Neue Aufgabe hinzufügen",
   "save": "Speichern",
   "cancel": "Stornieren",
-  "removeAssignedUser": "Zugewiesenen Benutzer entfernen"
+  "removeAssignedUser": "Zugewiesenen Benutzer entfernen",
+  "searchTask": "Suchaufgabe"
 }

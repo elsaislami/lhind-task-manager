@@ -4,7 +4,6 @@ import { TaskData } from "../../types";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../store";
 import { deleteTask } from "../../store/tasks/taskSlice";
-import "./TaskCard.module.css";
 
 const TaskCard: React.FC<{
   task: TaskData;
@@ -26,7 +25,7 @@ const TaskCard: React.FC<{
       className={`${className ? className : "task-card"} `}
       onClick={onPress}
     >
-      <div style={{display: 'flex', justifyContent: 'end'}}>
+      <div style={{ display: "flex", justifyContent: "end" }}>
         <button
           className="delete-button"
           onClick={(e) => {

@@ -32,8 +32,8 @@ if (storedUser) {
   initialState.user = parsedUser;
 }
 
-export const getUserByUsername = createAsyncThunk(
-  "users/getUserByUsername",
+export const login = createAsyncThunk(
+  "users/login",
   async (payload: LoginForm) => {
     const response = await axiosInstance.get(
       `users?username=${payload.username}`
@@ -69,20 +69,17 @@ const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getUserByUsername.pending, (state) => {
+      .addCase(login.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(
-        getUserByUsername.fulfilled,
-        (state, action: PayloadAction<User>) => {
-          state.loading = false;
-          state.isAuthenticated = true;
-          state.error = null;
-          state.user = action.payload;
-        }
-      )
-      .addCase(getUserByUsername.rejected, (state, action) => {
+      .addCase(login.fulfilled, (state, action: PayloadAction<User>) => {
+        state.loading = false;
+        state.isAuthenticated = true;
+        state.error = null;
+        state.user = action.payload;
+      })
+      .addCase(login.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message || "Failed to fetch user";
       });

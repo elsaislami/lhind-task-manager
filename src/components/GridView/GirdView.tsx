@@ -13,7 +13,6 @@ import TaskCard from "../TaskCard/TaskCard";
 import style from "./GridView.module.css";
 import { TaskData } from "../../types";
 import { useTranslation } from "react-i18next";
-import { use } from "i18next";
 
 interface Column {
   id: string;
@@ -28,10 +27,10 @@ interface GridViewProps {
 
 const GridView: React.FC<GridViewProps> = ({ tasks, onOpenModal }) => {
   const dispatch = useDispatch<AppDispatch>();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   type ColumnKey = "low" | "medium" | "high";
 
-  const [columns, setColumns] = useState< Record<ColumnKey, Column>>({
+  const [columns, setColumns] = useState<Record<ColumnKey, Column>>({
     low: {
       id: "low",
       title: t("lowPriority"),
@@ -50,7 +49,7 @@ const GridView: React.FC<GridViewProps> = ({ tasks, onOpenModal }) => {
   });
 
   useEffect(() => {
-    if(tasks) {
+    if (tasks) {
       setColumns({
         low: {
           id: "low",
@@ -75,8 +74,7 @@ const GridView: React.FC<GridViewProps> = ({ tasks, onOpenModal }) => {
         },
       });
     }
-  }, [tasks]);
-
+  }, [tasks, i18n.language]);
 
   const handleDragEnd = (result: DropResult) => {
     const { source, destination } = result;

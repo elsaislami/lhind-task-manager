@@ -6,7 +6,6 @@ import { addComment } from "../../store/tasks/taskSlice";
 import styles from "./TaskModal.module.css";
 import { useTranslation } from "react-i18next";
 import { getUsers } from "../../store/auth/authSlice";
-import { use } from "i18next";
 
 const TaskModal: React.FC<{
   selectedTask: TaskData | null;
@@ -77,7 +76,7 @@ const TaskModal: React.FC<{
         date: new Date(),
       } as Comment)
     );
-    setComments((prev:any) => {
+    setComments((prev: any) => {
       return [
         ...prev,
         {
@@ -87,7 +86,7 @@ const TaskModal: React.FC<{
         },
       ];
     });
-    
+
     setComment("");
   };
 
@@ -115,19 +114,26 @@ const TaskModal: React.FC<{
     return user ? user : null;
   };
 
-  useEffect(() => { 
-    if(task && task.comments && task.comments.length > 0) {
+  useEffect(() => {
+    if (task && task.comments && task.comments.length > 0) {
       setComments(task.comments);
     }
   }, [task]);
-  
+
   if (!showModal) return null;
 
   return (
-    <div className={styles.modalOverlay} onClick={() => {
-      onClose();
-    }}>
-      <div className={styles.modalContent} ref={modalRef} onClick={(e) => e.stopPropagation()}>
+    <div
+      className={styles.modalOverlay}
+      onClick={() => {
+        onClose();
+      }}
+    >
+      <div
+        className={styles.modalContent}
+        ref={modalRef}
+        onClick={(e) => e.stopPropagation()}
+      >
         <h2>{selectedTask ? t("editTask") : t("addTask")}</h2>
         <input
           type="text"
